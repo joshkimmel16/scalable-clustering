@@ -1,4 +1,4 @@
-# Gitty Up Web Server
+# Scalable Clustering
 
 [TODO]
 
