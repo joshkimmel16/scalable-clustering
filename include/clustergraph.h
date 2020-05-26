@@ -3,7 +3,11 @@
 #ifndef CLUSTERGRAPH_H
 #define CLUSTERGRAPH_H
 
+#include <string>
+#include <vector>
+
 #include "datapoint.h"
+#include "compare.h"
 
 class Cluster {
 public:
@@ -11,7 +15,7 @@ public:
     ~Cluster(); //destructor
     void AddParent(Cluster* p); //add a parent for the given cluster
     void AddChild(Cluster* p); //add a child for the given cluster
-    std::vector<Cluster*> ProcessDataPoint(DataPoint* p); //handle incoming data point
+    std::vector<Cluster*> ProcessDataPoint(DataPoint* p, Config* conf); //handle incoming data point
 private:
     unsigned int count; //track # data points matching cluster
     std::vector<Cluster*> parents; //track parents of cluster
@@ -23,7 +27,7 @@ class ClusterGraph {
 public:
     ClusterGraph(DataPoint* r); //constructor (need root data point)
     ~ClusterGraph(); //destructor
-    AddCluster(Cluster* parent, Cluster* new_cluster); //add a cluster to the given parent cluster in the graph
+    void AddCluster(Cluster* parent, Cluster* new_cluster); //add a cluster to the given parent cluster in the graph
 private:
     Cluster* root; //root of the graph
 };
