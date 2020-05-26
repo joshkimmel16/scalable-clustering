@@ -1,29 +1,38 @@
-// Define extensible library for complex data types with compare functions
+#ifndef CONFIG_H
+#define CONFIG_H
 
-#ifndef COMPARE_H
-#define COMPARE_H
+#include "compare.h"
 
-//define possible data parameter types
-//TO SUPPORT A NEW DATA TYPE, EXTEND THIS ENUM
-enum DataType {
-    DATA_STRING, 
-    DATA_INT,
-    DATA_DOUBLE 
+class Config {
+public:
+    Config(); //constructor
+    ~Config(); //destructor
+    void SetDataStart (std::string ds); //setter for data_start
+    bool AddDataIndex (std::string index); //setter for new data index
+    void SetNumAttrs (std::string na); //setter for num_attrs
+    bool AddDataType (std::string dt); //setter for new data type
+    bool AddCutoffVals (std::string cvs); //setter for new cutoff AddCutoffVals
+    void IncrementCurrIndex (); //update current_index
+    void SetDataPath (std::string dp); //setter for data_path
+    void SetReportPath (std::string rp); //setter for report_path
+    unsigned int GetDataStart (); //return data_start
+    unsigned int* GetDataIndices(); //return data_indices
+    unsigned int GetNumAttrs(); //return num_attrs
+    DataType GetDataType(unsigned int index); //retrieve type at given index
+    std::string* GetCutoffs(unsigned int index); //retrieve cutoff_vals at given index
+    unsigned int GetCutoffsLength(unsigned int index); //retrieve cutoff_val_lens at given index
+    std::string GetDataPath(); //retrieve data_path
+    std::string GetReportPath(); //retrieve report_path
+private:
+    unsigned int data_start;
+    unsigned int* data_indices;
+    unsigned int num_attrs;
+    DataType* types;
+    std::string** cutoff_vals;
+    unsigned int* cutoff_val_lens;
+    unsigned int current_index;
+    std::string data_path;
+    std::string report_path;
 };
-
-//generic compare method to help traverse the ClusterGraph
-//TO SUPPORT A NEW DATA TYPE, EXTEND THIS FUNCTION (IN .CC FILE)
-unsigned int Compare (DataPoint* anchor, DataPoint* input, unsigned int index, DataType type) {
-    switch (type) {
-        case DATA_STRING:
-            return (input->GetStringValue(index) <= anchor->GetStringValue(index)) ? 1 : 2;
-        case DATA_INT:
-            return (input->GetIntValue(index) <= anchor->GetIntValue(index)) ? 1 : 2;
-        case DATA_DOUBLE:
-            return (input->GetDoubleValue(index) <= anchor->GetDoubleValue(index)) ? 1 : 2;
-        default:
-            return 0;
-    }
-}
 
 #endif

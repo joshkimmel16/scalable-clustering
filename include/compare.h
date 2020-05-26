@@ -15,4 +15,8 @@ enum DataType {
 //TO SUPPORT A NEW DATA TYPE, EXTEND THIS FUNCTION (IN .CC FILE)
 unsigned int Compare (DataPoint* anchor, DataPoint* input, unsigned int index, DataType type);
 
+//return a DataType value from a string representation
+//TO SUPPORT A NEW DATA TYPE, EXTEND THIS FUNCTION (IN .CC FILE)
+DataType FromString (std::string dt);
+
 #endif
