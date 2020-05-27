@@ -17,7 +17,7 @@ The following section details how to prepare the production docker container.
 
 * Install Docker on the machine building the container (see https://docs.docker.com/v17.09/engine/installation/).
 * Browse to the root directory of the application.
-* Build the base container. This container is used solely to execute the necessary npm build commands.
+* Build the base container. This container is used solely to install dependencies.
 ```
 docker build -t scalable-clustering:base -f docker/dockerfile_build .
 ```
