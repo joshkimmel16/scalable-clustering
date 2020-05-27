@@ -16,14 +16,16 @@ unsigned int Compare (DataPoint* anchor, DataPoint* input, unsigned int index, D
 
 //TO SUPPORT A NEW DATA TYPE, EXTEND THIS FUNCTION
 DataType FromString (std::string dt) {
-    switch (ds) {
-        case "DATA_STRING":
-            return DATA_STRING;
-        case "DATA_INT":
-            return DATA_INT;
-        case "DATA_DOUBLE":
-            return DATA_DOUBLE;
-        default:
-            return DATA_STRING;
+    if (dt == "DATA_STRING") {
+        return DATA_STRING;
+    }
+    else if (dt == "DATA_INT") {
+        return DATA_INT;
+    }
+    else if (dt == "DATA_DOUBLE") {
+        return DATA_DOUBLE;
+    }
+    else {
+        return DATA_STRING;
     }
 }

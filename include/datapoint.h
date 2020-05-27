@@ -3,6 +3,8 @@
 #ifndef DATAPOINT_H
 #define DATAPOINT_H
 
+#include <string>
+
 //generic DataPoint class
 class DataPoint {
 public:

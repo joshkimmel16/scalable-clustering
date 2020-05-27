@@ -28,7 +28,11 @@ add_subdirectory(/usr/src/googletest googletest)
 
 include_directories(include)
 
-#add_library...
+#add_libraries
+add_library(datapoint src/datapoint.cc)
+add_library(compare src/compare.cc)
+add_library(config src/config.cc)
+add_library(clustergraph src/clustergraph.cc)
 
 #add_executable...
 #target_link_libraries

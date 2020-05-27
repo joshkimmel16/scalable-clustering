@@ -58,11 +58,11 @@ bool Config::AddCutoffVals (std::string cvs) {
         if (tmpAdd != "") {
             tmp.push_back(tmpAdd);
         }
-        cvs[current_index] = new std::string [tmp.count()];
-        for (unsigned int j=0; j<tmp.count(); tmp++) {
-            cvs[current_index][j] = tmp[j];
+        cutoff_vals[current_index] = new std::string[tmp.size()];
+        for (unsigned int j=0; j<tmp.size(); j++) {
+            cutoff_vals[current_index][j] = tmp[j];
         }
-        cutoff_val_lens[current_index] = tmp.count();
+        cutoff_val_lens[current_index] = tmp.size();
         return true;
     }
     else {
@@ -70,7 +70,7 @@ bool Config::AddCutoffVals (std::string cvs) {
     }
 }
 
-void Config::IncrementCurrentIndex () {
+void Config::IncrementCurrIndex () {
     current_index++;
 }
 
@@ -82,34 +82,34 @@ void Config::SetReportPath (std::string rp) {
     report_path = rp;
 }
 
-unsigned int GetDataStart () {
+unsigned int Config::GetDataStart () {
     return data_start;
 }
 
-unsigned int* GetDataIndices () {
+unsigned int* Config::GetDataIndices () {
     return data_indices;
 }
 
-unsigned int GetNumAttrs () {
+unsigned int Config::GetNumAttrs () {
     return num_attrs;
 }
 
-DataType GetDataType (unsigned int index) {
+DataType Config::GetDataType (unsigned int index) {
     return types[index];
 }
 
-std::string* GetCutoffs (unsigned int index) {
+std::string* Config::GetCutoffs (unsigned int index) {
     return cutoff_vals[index];
 }
 
-unsigned int GetCutoffsLength (unsigned int index) {
+unsigned int Config::GetCutoffsLength (unsigned int index) {
     return cutoff_val_lens[index];
 }
 
-std::string GetDataPath () {
+std::string Config::GetDataPath () {
     return data_path;
 }
 
-std::string GetReportPath () {
+std::string Config::GetReportPath () {
     return report_path;
 }

@@ -8,6 +8,7 @@
 
 #include "datapoint.h"
 #include "compare.h"
+#include "config.h"
 
 class Cluster {
 public:
@@ -19,7 +20,7 @@ public:
 private:
     unsigned int count; //track # data points matching cluster
     std::vector<Cluster*> parents; //track parents of cluster
-    std::vector<Cluster*> Children; //track children of cluster
+    std::vector<Cluster*> children; //track children of cluster
     DataPoint* anchor; //DataPoint to use to compare to incoming points
 };
 

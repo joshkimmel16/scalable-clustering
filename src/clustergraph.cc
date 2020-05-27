@@ -19,8 +19,8 @@ void Cluster::AddChild (Cluster* p) {
 
 std::vector<Cluster*> Cluster::ProcessDataPoint(DataPoint* p, Config* conf) {
     std::vector<Cluster*> toVisit;
-    for (unsigned int i=0; i<conf->numArgs; i++) {
-        unsigned int check = Compare(anchor, p, i, conf->types[i]);
+    for (unsigned int i=0; i<conf->GetNumAttrs(); i++) {
+        unsigned int check = Compare(anchor, p, i, conf->GetDataType(i));
         //TODO: how to add the right children to the output?
     }
 }
