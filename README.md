@@ -1,5 +1,16 @@
 # Scalable Clustering
 
+## Compiling
+
+* Ensure all dependencies are installed on the target machine (see Dockerfile for a list).
+* Create a _build_ directory in the root of the repository. 
+```mkdir build && cd build```
+* Run _cmake_ from this directory pointing to _CMakeLists.txt_.
+    * Note: If any new header files/dependencies/tests are added, _CMakeLists.txt_ must be updated to account for them.
+```cmake ..```
+* The above command generates a Makefile. The actual building can then be accomplished by executing the default _make_ task of this file.
+``` make ```
+
 ## Docker Instructions
 
 The following section details how to prepare the production docker container.
