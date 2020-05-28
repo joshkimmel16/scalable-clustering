@@ -1,9 +1,26 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <stack>
+#include <string>
 #include <vector>
 
 #include "compare.h"
+
+enum ParserState {
+    DATA_START,
+    DATA_INDICES,
+    NUM_ATTRS,
+    DATA_TYPES,
+    CUTOFF_VALS,
+    DATA_PATH,
+    REPORT_PATH
+};
+ParserState StateFromString (std::string state); //get state from string
 
 class Config {
 public:
@@ -36,5 +53,10 @@ private:
     std::string data_path;
     std::string report_path;
 };
+
+std::vector<std::string> ReadLine (std::istream* input); //read a line from the config file
+void SetConfigVal (std::vector<std::string> line, Config* config); //method to set a config value appropriately based on parsed line
+bool Parse(std::istream* config_file, Config* config); //actual parse function to extract config values from config file
+bool Parse(const char* file_name, Config* config); //high-level parse function that takes config path as a string
 
 #endif
