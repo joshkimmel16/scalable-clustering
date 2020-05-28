@@ -30,6 +30,24 @@ docker build -t scalable-clustering:latest -f docker/Dockerfile .
 docker run --name scalable-clustering -d scalable-clustering:latest
 ```
 
+## Configuration
+
+The application takes as input a config file. This config file is passed as a command line argument to the main executable as follows:
+[TODO]
+
+Below is a sample config file, which is explained in detail:
+[TODO]
+
+### Config Parameters
+
+* _DATA_START_ => The line of the input data set file that contains row 1 of the data (Int)
+* _DATA_INDICES_ => The columns (starting at 0) of the input data set to use for the clustering algorithm (Comma-Separated List of Ints)
+* _NUM_ATTRS_ => The number of columns (dimensions) that are used for the clustering algorithm (Int)
+* _DATA_TYPES_ => The types of each column that is used for the clustering algorithm (Comma-Separated list of Strings). See [TODO] for a list of supported data types.
+* _CUTOFF_VALS_ => The cutoff values for each column that define the clusters for the algorithm. Each array is interpreted as a binary tree in array form. (Comma-Separated list of Arrays of Strings)
+* _DATA_PATH_ => Path to the input data set file (String)
+* _REPORT_PATH_ => Path to the output report file (String)
+
 ## Authors
 
 * **Daniel Achee**

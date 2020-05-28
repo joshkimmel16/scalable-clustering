@@ -113,3 +113,157 @@ std::string Config::GetDataPath () {
 std::string Config::GetReportPath () {
     return report_path;
 }
+
+ParserState StateFromString (std::string state) {
+    if (state == "DATA_START") {
+        return DATA_START;
+    }
+    else if (state == "DATA_INDICES") {
+        return DATA_INDICES;
+    }
+    else if (state == "NUM_ATTRS") {
+        return NUM_ATTRS;
+    }
+    else if (state == "DATA_TYPES") {
+        return DATA_TYPES;
+    }
+    else if (state == "CUTOFF_VALS") {
+        return CUTOFF_VALS;
+    }
+    else if (state == "DATA_PATH") {
+        return DATA_PATH;
+    }
+    else if (state == "REPORT_PATH") {
+        return REPORT_PATH;
+    }
+    else {
+        return DATA_START;
+    }
+}
+
+std::vector<std::string> ReadLine (std::istream* input) {
+    std::vector<std::string> output;
+    std::string tmp = "";
+    while (input->good()) {
+        const char c = input->get();
+        if (!input->good()) {
+            break;
+        }
+        if (c == '\n') {
+            output.push_back(tmp);
+            break;
+        }
+        else if (c == '=') {
+            output.push_back(tmp);
+            tmp = "";
+        }
+        else {
+            tmp += c;
+        }
+    }
+    return output;
+}
+
+void SetConfigVal (std::vector<std::string> line, Config* config) {
+    ParserState state = StateFromString(line[0]);
+    switch (state) {
+        case DATA_START:
+        {
+            config->SetDataStart(line[1]);
+            break;
+        }
+        case DATA_INDICES:
+        {
+            std::string tmp1 = "";
+            for (unsigned int i=0; i<line[1].length(); i++) {
+                if (line[1][i] == ',') {
+                    config->AddDataIndex(tmp1);
+                    tmp1 = "";
+                }
+                else {
+                    tmp1 += line[1][i];
+                }
+            }
+            if (tmp1 != "") {
+                config->AddDataIndex(tmp1);
+            }
+            break;
+        }
+        case NUM_ATTRS:
+        {
+            config->SetNumAttrs(line[1]);
+            break;
+        }
+        case DATA_TYPES:
+        {
+            std::string tmp2 = "";
+            for (unsigned int i=0; i<line[1].length(); i++) {
+                if (line[1][i] == ',') {
+                    config->AddDataType(tmp2);
+                    tmp2 = "";
+                }
+                else {
+                    tmp2 += line[1][i];
+                }
+            }
+            if (tmp2 != "") {
+                config->AddDataType(tmp2);
+            }
+            break;
+        }
+        case CUTOFF_VALS:
+        {
+            std::string tmp3 = "";
+            for (unsigned int i=0; i<line[1].length(); i++) {
+                if (line[1][i] == '[') {
+                    continue;
+                }
+                else if (line[1][i] == ']') {
+                    config->AddCutoffVals(tmp3);
+                    tmp3 = "";
+                }
+                else {
+                    tmp3 += line[1][i];
+                }
+            }
+            break;
+        }
+        case DATA_PATH:
+        {
+            config->SetDataPath(line[1]);
+            break;
+        }
+        case REPORT_PATH:
+        {
+            config->SetReportPath(line[1]);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+bool Parse(std::istream* config_file, Config* config) {
+    while (true) {
+        std::vector<std::string> line = ReadLine(config_file);
+        if (line.size() < 2) { break; }
+        else {
+            SetConfigVal(line, config);
+        }
+    }
+    return true;
+}
+
+bool Parse(const char* file_name, Config* config) {
+  std::ifstream config_file;
+  config_file.open(file_name);
+  if (!config_file.good()) {
+    printf ("Failed to open config file: %s\n", file_name);
+    return false;
+  }
+
+  const bool return_value =
+      Parse(dynamic_cast<std::istream*>(&config_file), config);
+  config_file.close();
+  return return_value;
+}
