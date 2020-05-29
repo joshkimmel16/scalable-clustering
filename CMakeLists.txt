@@ -38,7 +38,15 @@ add_library(clustergraph src/clustergraph.cc)
 #add_executable...
 #target_link_libraries
 
-#add executable (for tests)...
-#target_link_libarires (for tests)...
+#add test executables
+add_executable(datapoint_test tests/datapoint_test.cc)
+target_link_libraries(datapoint_test datapoint gtest_main)
+add_executable(compare_test tests/compare_test.cc)
+target_link_libraries(compare_test compare datapoint gtest_main)
+add_executable(config_test tests/config_test.cc)
+target_link_libraries(config_test config compare datapoint gtest_main)
 
-#gtest_discover_tests...
+#discover tests
+gtest_discover_tests(datapoint_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(compare_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(config_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)

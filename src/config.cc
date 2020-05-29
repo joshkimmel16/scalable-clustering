@@ -1,7 +1,15 @@
 #include "config.h"
 
 Config::Config () {
+    data_start = 0;
+    data_indices = nullptr;
+    num_attrs = 0;
+    types = nullptr;
+    cutoff_vals = nullptr;
+    cutoff_val_lens = nullptr;
     current_index = 0;
+    data_path = "data.csv";
+    report_path = "report.txt";
 }
 
 Config::~Config () {
