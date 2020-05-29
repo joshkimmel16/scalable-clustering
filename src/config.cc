@@ -2,33 +2,20 @@
 
 Config::Config () {
     data_start = 0;
-    data_indices = nullptr;
     num_attrs = 0;
-    types = nullptr;
-    cutoff_vals = nullptr;
-    cutoff_val_lens = nullptr;
-    current_index = 0;
     data_path = "data.csv";
     report_path = "report.txt";
 }
 
-Config::~Config () {
-    delete [] data_indices;
-    delete [] types;
-    for (unsigned int i=0; i<num_attrs; i++) {
-        delete [] cutoff_vals[i];
-    }
-    delete [] cutoff_vals;
-    delete [] cutoff_val_lens;
-}
+Config::~Config () {}
 
 void Config::SetDataStart (std::string ds) {
     data_start = std::stoi(ds);
 }
 
 bool Config::AddDataIndex (std::string index) {
-    if (current_index < num_attrs) {
-        data_indices[current_index] = std::stoi(index);
+    if (data_indices.size() < num_attrs) {
+        data_indices.push_back(std::stoi(index));
         return true;
     }
     else {
@@ -38,24 +25,14 @@ bool Config::AddDataIndex (std::string index) {
 
 void Config::SetNumAttrs (std::string na) {
     num_attrs = std::stoi(na);
-    if (data_indices != nullptr) { delete [] data_indices; }
-    if (types != nullptr) { delete [] types; }
-    if (cutoff_vals != nullptr) { 
-        for (unsigned int i=0; i<num_attrs; i++) {
-            delete [] cutoff_vals[i];
-        }
-        delete [] cutoff_vals;
-    }
-    if (cutoff_val_lens != nullptr) { delete [] cutoff_val_lens; }
-    data_indices = new int [num_attrs];
-    types = new DataType [num_attrs];
-    cutoff_vals = new std::string* [num_attrs];
-    cutoff_val_lens = new unsigned int [num_attrs];
+    data_indices.clear();
+    types.clear();
+    cutoff_vals.clear();
 }
 
 bool Config::AddDataType (std::string dt) {
-    if (current_index < num_attrs) {
-        data_indices[current_index] = FromString(dt);
+    if (types.size() < num_attrs) {
+        types.push_back(FromString(dt));
         return true;
     }
     else {
@@ -64,7 +41,7 @@ bool Config::AddDataType (std::string dt) {
 }
 
 bool Config::AddCutoffVals (std::string cvs) {
-    if (current_index < num_attrs) {
+    if (cutoff_vals.size() < num_attrs) {
         std::vector<std::string> tmp;
         std::string tmpAdd = "";
         for (unsigned int i=0; i<cvs.length(); i++) {
@@ -79,21 +56,11 @@ bool Config::AddCutoffVals (std::string cvs) {
         if (tmpAdd != "") {
             tmp.push_back(tmpAdd);
         }
-        cutoff_vals[current_index] = new std::string[tmp.size()];
-        for (unsigned int j=0; j<tmp.size(); j++) {
-            cutoff_vals[current_index][j] = tmp[j];
-        }
-        cutoff_val_lens[current_index] = tmp.size();
-        return true;
+        cutoff_vals.push_back(tmp);
     }
     else {
         return false;
     }
-}
-
-unsigned int Config::IncrementCurrIndex () {
-    current_index = current_index+1;
-    return current_index;
 }
 
 void Config::SetDataPath (std::string dp) {
@@ -108,7 +75,7 @@ unsigned int Config::GetDataStart () {
     return data_start;
 }
 
-int* Config::GetDataIndices () {
+std::vector<unsigned int> Config::GetDataIndices () {
     return data_indices;
 }
 
@@ -120,12 +87,8 @@ DataType Config::GetDataType (unsigned int index) {
     return types[index];
 }
 
-std::string* Config::GetCutoffs (unsigned int index) {
+std::vector<std::string> Config::GetCutoffs (unsigned int index) {
     return cutoff_vals[index];
-}
-
-unsigned int Config::GetCutoffsLength (unsigned int index) {
-    return cutoff_val_lens[index];
 }
 
 std::string Config::GetDataPath () {

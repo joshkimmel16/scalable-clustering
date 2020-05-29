@@ -31,25 +31,21 @@ public:
     void SetNumAttrs (std::string na); //setter for num_attrs
     bool AddDataType (std::string dt); //setter for new data type
     bool AddCutoffVals (std::string cvs); //setter for new cutoff AddCutoffVals
-    unsigned int IncrementCurrIndex (); //update current_index
     void SetDataPath (std::string dp); //setter for data_path
     void SetReportPath (std::string rp); //setter for report_path
     unsigned int GetDataStart (); //return data_start
-    int* GetDataIndices(); //return data_indices
+    std::vector<unsigned int> GetDataIndices(); //return data_indices
     unsigned int GetNumAttrs(); //return num_attrs
     DataType GetDataType(unsigned int index); //retrieve type at given index
-    std::string* GetCutoffs(unsigned int index); //retrieve cutoff_vals at given index
-    unsigned int GetCutoffsLength(unsigned int index); //retrieve cutoff_val_lens at given index
+    std::vector<std::string> GetCutoffs(unsigned int index); //retrieve cutoff_vals at given index
     std::string GetDataPath(); //retrieve data_path
     std::string GetReportPath(); //retrieve report_path
 private:
     unsigned int data_start;
-    int* data_indices;
+    std::vector<unsigned int> data_indices;
     unsigned int num_attrs;
-    DataType* types;
-    std::string** cutoff_vals;
-    unsigned int* cutoff_val_lens;
-    unsigned int current_index;
+    std::vector<DataType> types;
+    std::vector<std::vector<std::string>> cutoff_vals;
     std::string data_path;
     std::string report_path;
 };
