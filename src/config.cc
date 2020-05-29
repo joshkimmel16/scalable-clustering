@@ -38,6 +38,19 @@ bool Config::AddDataIndex (std::string index) {
 
 void Config::SetNumAttrs (std::string na) {
     num_attrs = std::stoi(na);
+    if (data_indices != nullptr) { delete [] data_indices; }
+    if (types != nullptr) { delete [] types; }
+    if (cutoff_vals != nullptr) { 
+        for (unsigned int i=0; i<num_attrs; i++) {
+            delete [] cutoff_vals[i];
+        }
+        delete [] cutoff_vals;
+    }
+    if (cutoff_val_lens != nullptr) { delete [] cutoff_val_lens; }
+    data_indices = new int [num_attrs];
+    types = new DataType [num_attrs];
+    cutoff_vals = new std::string* [num_attrs];
+    cutoff_val_lens = new unsigned int [num_attrs];
 }
 
 bool Config::AddDataType (std::string dt) {
@@ -78,8 +91,9 @@ bool Config::AddCutoffVals (std::string cvs) {
     }
 }
 
-void Config::IncrementCurrIndex () {
-    current_index++;
+unsigned int Config::IncrementCurrIndex () {
+    current_index = current_index+1;
+    return current_index;
 }
 
 void Config::SetDataPath (std::string dp) {
@@ -94,7 +108,7 @@ unsigned int Config::GetDataStart () {
     return data_start;
 }
 
-unsigned int* Config::GetDataIndices () {
+int* Config::GetDataIndices () {
     return data_indices;
 }
 

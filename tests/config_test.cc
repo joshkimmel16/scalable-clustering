@@ -47,41 +47,43 @@ TEST_F(ConfigTest, Config) {
     Config c = Config();
     
     c.SetDataStart("1");
-    c.SetNumAttrs("3"); //error here - not sure what's happening (Segfault??)
-    
-    /*
-    c.AddDataIndex("0");
+    c.SetNumAttrs("3");
+    bool check1 = c.AddDataIndex("0");
+    EXPECT_EQ(check1, true);
     c.AddDataType("DATA_STRING");
     c.AddCutoffVals("j");
-    c.IncrementCurrIndex();
+    unsigned int i1 = c.IncrementCurrIndex();
+    EXPECT_EQ(i1, 1);
 
-    c.AddDataIndex("2");
+    bool check2 = c.AddDataIndex("2");
+    EXPECT_EQ(check2, true);
     c.AddDataType("DATA_INT");
     c.AddCutoffVals("5,3,7");
-    c.IncrementCurrIndex();
-    c.AddDataIndex("4");
+    unsigned int i2 = c.IncrementCurrIndex();
+    EXPECT_EQ(i2, 2);
+
+    bool check3 = c.AddDataIndex("4");
+    EXPECT_EQ(check3, true);
     c.AddDataType("DATA_DOUBLE");
     c.AddCutoffVals("1.555");
     c.SetDataPath("path_to_data.csv");
     c.SetReportPath("path_to_report.txt");
-*/
     
     EXPECT_EQ(c.GetDataStart(), 1);
     EXPECT_EQ(c.GetNumAttrs(), 3);
-
-/*
     EXPECT_EQ(c.GetDataType(0), DATA_STRING);
     EXPECT_EQ(c.GetDataPath(), "path_to_data.csv");
-    EXPECT_EQ(c.GetReportPath(), "path_to_report.csv");
-    
+    EXPECT_EQ(c.GetReportPath(), "path_to_report.txt");
     
     unsigned int* t1 = new unsigned int[3] { 0,2,4 };
     std::string* t2 = new std::string[3] {"5,3,7"};
-    EXPECT_EQ(CompareArraysInt(c.GetDataIndices(), t1, 3), true);
-    EXPECT_EQ(CompareArraysString(c.GetCutoffs(1), t2, 3), true);
+    int* c1 = c.GetDataIndices();
+    EXPECT_EQ(c1[0], 0);
+    EXPECT_EQ(c1[2], 2);
+    //EXPECT_EQ(CompareArraysInt(c.GetDataIndices(), t1, 2), true);
+    //EXPECT_EQ(CompareArraysString(c.GetCutoffs(1), t2, 3), true);
     EXPECT_EQ(c.GetCutoffsLength(1), 3);
 
     delete [] t1;
     delete [] t2;
-    */
 }

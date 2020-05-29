@@ -31,11 +31,11 @@ public:
     void SetNumAttrs (std::string na); //setter for num_attrs
     bool AddDataType (std::string dt); //setter for new data type
     bool AddCutoffVals (std::string cvs); //setter for new cutoff AddCutoffVals
-    void IncrementCurrIndex (); //update current_index
+    unsigned int IncrementCurrIndex (); //update current_index
     void SetDataPath (std::string dp); //setter for data_path
     void SetReportPath (std::string rp); //setter for report_path
     unsigned int GetDataStart (); //return data_start
-    unsigned int* GetDataIndices(); //return data_indices
+    int* GetDataIndices(); //return data_indices
     unsigned int GetNumAttrs(); //return num_attrs
     DataType GetDataType(unsigned int index); //retrieve type at given index
     std::string* GetCutoffs(unsigned int index); //retrieve cutoff_vals at given index
@@ -44,7 +44,7 @@ public:
     std::string GetReportPath(); //retrieve report_path
 private:
     unsigned int data_start;
-    unsigned int* data_indices;
+    int* data_indices;
     unsigned int num_attrs;
     DataType* types;
     std::string** cutoff_vals;
