@@ -1,26 +1,21 @@
 #include "config.h"
 
 Config::Config () {
-    current_index = 0;
+    data_start = 0;
+    num_attrs = 0;
+    data_path = "data.csv";
+    report_path = "report.txt";
 }
 
-Config::~Config () {
-    delete [] data_indices;
-    delete [] types;
-    for (unsigned int i=0; i<num_attrs; i++) {
-        delete [] cutoff_vals[i];
-    }
-    delete [] cutoff_vals;
-    delete [] cutoff_val_lens;
-}
+Config::~Config () {}
 
 void Config::SetDataStart (std::string ds) {
     data_start = std::stoi(ds);
 }
 
 bool Config::AddDataIndex (std::string index) {
-    if (current_index < num_attrs) {
-        data_indices[current_index] = std::stoi(index);
+    if (data_indices.size() < num_attrs) {
+        data_indices.push_back(std::stoi(index));
         return true;
     }
     else {
@@ -30,11 +25,14 @@ bool Config::AddDataIndex (std::string index) {
 
 void Config::SetNumAttrs (std::string na) {
     num_attrs = std::stoi(na);
+    data_indices.clear();
+    types.clear();
+    cutoff_vals.clear();
 }
 
 bool Config::AddDataType (std::string dt) {
-    if (current_index < num_attrs) {
-        data_indices[current_index] = FromString(dt);
+    if (types.size() < num_attrs) {
+        types.push_back(FromString(dt));
         return true;
     }
     else {
@@ -43,7 +41,7 @@ bool Config::AddDataType (std::string dt) {
 }
 
 bool Config::AddCutoffVals (std::string cvs) {
-    if (current_index < num_attrs) {
+    if (cutoff_vals.size() < num_attrs) {
         std::vector<std::string> tmp;
         std::string tmpAdd = "";
         for (unsigned int i=0; i<cvs.length(); i++) {
@@ -58,20 +56,11 @@ bool Config::AddCutoffVals (std::string cvs) {
         if (tmpAdd != "") {
             tmp.push_back(tmpAdd);
         }
-        cutoff_vals[current_index] = new std::string[tmp.size()];
-        for (unsigned int j=0; j<tmp.size(); j++) {
-            cutoff_vals[current_index][j] = tmp[j];
-        }
-        cutoff_val_lens[current_index] = tmp.size();
-        return true;
+        cutoff_vals.push_back(tmp);
     }
     else {
         return false;
     }
-}
-
-void Config::IncrementCurrIndex () {
-    current_index++;
 }
 
 void Config::SetDataPath (std::string dp) {
@@ -86,7 +75,7 @@ unsigned int Config::GetDataStart () {
     return data_start;
 }
 
-unsigned int* Config::GetDataIndices () {
+std::vector<unsigned int> Config::GetDataIndices () {
     return data_indices;
 }
 
@@ -98,12 +87,8 @@ DataType Config::GetDataType (unsigned int index) {
     return types[index];
 }
 
-std::string* Config::GetCutoffs (unsigned int index) {
+std::vector<std::string> Config::GetCutoffs (unsigned int index) {
     return cutoff_vals[index];
-}
-
-unsigned int Config::GetCutoffsLength (unsigned int index) {
-    return cutoff_val_lens[index];
 }
 
 std::string Config::GetDataPath () {
@@ -146,9 +131,6 @@ std::vector<std::string> ReadLine (std::istream* input) {
     std::string tmp = "";
     while (input->good()) {
         const char c = input->get();
-        if (!input->good()) {
-            break;
-        }
         if (c == '\n') {
             output.push_back(tmp);
             break;
@@ -156,6 +138,9 @@ std::vector<std::string> ReadLine (std::istream* input) {
         else if (c == '=') {
             output.push_back(tmp);
             tmp = "";
+        }
+        else if (c == '\r') {
+            continue;
         }
         else {
             tmp += c;
@@ -214,14 +199,21 @@ void SetConfigVal (std::vector<std::string> line, Config* config) {
         case CUTOFF_VALS:
         {
             std::string tmp3 = "";
+            bool endVal = false;
             for (unsigned int i=0; i<line[1].length(); i++) {
                 if (line[1][i] == '[') {
+                    continue;
+                }
+                else if (line[1][i] == ',' && endVal) {
+                    endVal = false;
                     continue;
                 }
                 else if (line[1][i] == ']') {
                     config->AddCutoffVals(tmp3);
                     tmp3 = "";
+                    endVal = true;
                 }
+
                 else {
                     tmp3 += line[1][i];
                 }

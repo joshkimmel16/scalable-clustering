@@ -11,6 +11,14 @@
 * The above command generates a Makefile. The actual building can then be accomplished by executing the default _make_ task of this file.
 ``` make ```
 
+## Testing
+
+* Ensure all dependencies are installed on the target machine (see Dockerfile for a list, namely googletest).
+* Browse to _build_ directory from the root of the repository.
+``` cd buld ```
+* Run the following command to execute all unit tests:
+``` make test ```
+
 ## Docker Instructions
 
 The following section details how to prepare the production docker container.
