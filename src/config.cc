@@ -131,9 +131,6 @@ std::vector<std::string> ReadLine (std::istream* input) {
     std::string tmp = "";
     while (input->good()) {
         const char c = input->get();
-        if (!input->good()) {
-            break;
-        }
         if (c == '\n') {
             output.push_back(tmp);
             break;
@@ -141,6 +138,9 @@ std::vector<std::string> ReadLine (std::istream* input) {
         else if (c == '=') {
             output.push_back(tmp);
             tmp = "";
+        }
+        else if (c == '\r') {
+            continue;
         }
         else {
             tmp += c;
@@ -199,14 +199,21 @@ void SetConfigVal (std::vector<std::string> line, Config* config) {
         case CUTOFF_VALS:
         {
             std::string tmp3 = "";
+            bool endVal = false;
             for (unsigned int i=0; i<line[1].length(); i++) {
                 if (line[1][i] == '[') {
+                    continue;
+                }
+                else if (line[1][i] == ',' && endVal) {
+                    endVal = false;
                     continue;
                 }
                 else if (line[1][i] == ']') {
                     config->AddCutoffVals(tmp3);
                     tmp3 = "";
+                    endVal = true;
                 }
+
                 else {
                     tmp3 += line[1][i];
                 }
