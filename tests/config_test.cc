@@ -31,6 +31,7 @@ TEST_F(ConfigTest, StateFromString) {
   std::string s5 = "CUTOFF_VALS";
   std::string s6 = "DATA_PATH";
   std::string s7 = "REPORT_PATH";
+  std::string s8 = "THRESHOLD";
   
   EXPECT_EQ(StateFromString(s1), DATA_START);
   EXPECT_EQ(StateFromString(s2), DATA_INDICES);
@@ -39,7 +40,7 @@ TEST_F(ConfigTest, StateFromString) {
   EXPECT_EQ(StateFromString(s5), CUTOFF_VALS);
   EXPECT_EQ(StateFromString(s6), DATA_PATH);
   EXPECT_EQ(StateFromString(s7), REPORT_PATH);
-
+  EXPECT_EQ(StateFromString(s8), THRESHOLD);
 }
 
 //Config internal functions
@@ -62,12 +63,15 @@ TEST_F(ConfigTest, Config) {
 
     c.SetDataPath("path_to_data.csv");
     c.SetReportPath("path_to_report.txt");
+
+    c.SetThreshold("0.67");
     
     EXPECT_EQ(c.GetDataStart(), 1);
     EXPECT_EQ(c.GetNumAttrs(), 3);
     EXPECT_EQ(c.GetDataType(0), DATA_STRING);
     EXPECT_EQ(c.GetDataPath(), "path_to_data.csv");
     EXPECT_EQ(c.GetReportPath(), "path_to_report.txt");
+    EXPECT_EQ(c.GetThreshold(), 0.67);
     
     std::vector<unsigned int> c1 = c.GetDataIndices();
     EXPECT_EQ(c1[0], 0);
@@ -123,6 +127,12 @@ TEST_F(ConfigTest, ReadLine) {
     std::vector<std::string> o7 = ReadLine(i7);
     EXPECT_EQ(o7[0], "REPORT_PATH");
     EXPECT_EQ(o7[1], "path_to_report.txt");
+
+    std::string t8 = "THRESHOLD=1.67\n";
+    std::istringstream* i8 = new std::istringstream(t8);
+    std::vector<std::string> o8 = ReadLine(i8);
+    EXPECT_EQ(o8[0], "THRESHOLD");
+    EXPECT_EQ(o8[1], "1.67");
 }
 
 //SetConfigVal tests
@@ -166,6 +176,10 @@ TEST_F(ConfigTest, SetConfigVal) {
     std::vector<std::string> t7 { "REPORT_PATH", "path_to_report.txt" };
     SetConfigVal(t7, c);
     EXPECT_EQ(c->GetReportPath(), "path_to_report.txt");
+
+    std::vector<std::string> t8 { "THRESHOLD", "1.67" };
+    SetConfigVal(t8, c);
+    EXPECT_EQ(c->GetThreshold(), 1.67);
 }
 
 //ReadLine function
@@ -184,6 +198,8 @@ TEST_F(ConfigTest, Parse) {
 
     EXPECT_EQ(c->GetDataPath(), "path_to_data.csv");
     EXPECT_EQ(c->GetReportPath(), "path_to_report.txt");
+
+    EXPECT_EQ(c->GetThreshold(), 1.67);
     
     std::vector<unsigned int> c1 = c->GetDataIndices();
     EXPECT_EQ(c1[0], 0);

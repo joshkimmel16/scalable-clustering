@@ -71,6 +71,10 @@ void Config::SetReportPath (std::string rp) {
     report_path = rp;
 }
 
+void Config::SetThreshold (std::string t) {
+    threshold = std::stod(t);
+}
+
 unsigned int Config::GetDataStart () {
     return data_start;
 }
@@ -99,6 +103,10 @@ std::string Config::GetReportPath () {
     return report_path;
 }
 
+double Config::GetThreshold () {
+    return threshold;
+}
+
 ParserState StateFromString (std::string state) {
     if (state == "DATA_START") {
         return DATA_START;
@@ -120,6 +128,9 @@ ParserState StateFromString (std::string state) {
     }
     else if (state == "REPORT_PATH") {
         return REPORT_PATH;
+    }
+    else if (state == "THRESHOLD") {
+        return THRESHOLD;
     }
     else {
         return DATA_START;
@@ -228,6 +239,11 @@ void SetConfigVal (std::vector<std::string> line, Config* config) {
         case REPORT_PATH:
         {
             config->SetReportPath(line[1]);
+            break;
+        }
+        case THRESHOLD:
+        {
+            config->SetThreshold(line[1]);
             break;
         }
         default:
