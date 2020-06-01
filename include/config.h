@@ -18,7 +18,8 @@ enum ParserState {
     DATA_TYPES,
     CUTOFF_VALS,
     DATA_PATH,
-    REPORT_PATH
+    REPORT_PATH,
+    THRESHOLD
 };
 ParserState StateFromString (std::string state); //get state from string
 
@@ -33,6 +34,7 @@ public:
     bool AddCutoffVals (std::string cvs); //setter for new cutoff AddCutoffVals
     void SetDataPath (std::string dp); //setter for data_path
     void SetReportPath (std::string rp); //setter for report_path
+    void SetThreshold (std::string t); //setter for threshold
     unsigned int GetDataStart (); //return data_start
     std::vector<unsigned int> GetDataIndices(); //return data_indices
     unsigned int GetNumAttrs(); //return num_attrs
@@ -40,6 +42,7 @@ public:
     std::vector<std::string> GetCutoffs(unsigned int index); //retrieve cutoff_vals at given index
     std::string GetDataPath(); //retrieve data_path
     std::string GetReportPath(); //retrieve report_path
+    double GetThreshold(); //retrieve threshold
 private:
     unsigned int data_start;
     std::vector<unsigned int> data_indices;
@@ -48,6 +51,7 @@ private:
     std::vector<std::vector<std::string>> cutoff_vals;
     std::string data_path;
     std::string report_path;
+    double threshold;
 };
 
 std::vector<std::string> ReadLine (std::istream* input); //read a line from the config file
