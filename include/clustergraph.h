@@ -77,6 +77,7 @@ public:
     Search(std::vector<unsigned int> ranges); // search for a certain cluster. if it has been added to the graph, return its parent (with the largest dimension number) and itself
     void PopulateChildren(); // populate children in all dimensions
     Cluster *GetRoot(); // getter for root
+    const unsigned int GetDimension() const; // getter for dimension
 private:
     Cluster *root; //root of the graph
     const unsigned int dimension; // # of dimensions

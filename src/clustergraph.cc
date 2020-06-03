@@ -8,9 +8,7 @@ Cluster::Cluster(unsigned int d, std::vector<unsigned int> r, ClusterGraph *g, C
     count = 0;
     anchor = anch;
     for (int i = 0; i < dimension; ++i) {
-
         parents.push_back(nullptr);
-//        std::cout << "d: " << GetParents().size();
         Branch branch;
         children.push_back(branch);
     }
@@ -69,6 +67,14 @@ const std::vector<unsigned int> &Cluster::GetRanges() const {
     return ranges;
 }
 
+void PrintRanges(const std::vector<unsigned int> ranges){
+    std::cout<<"[";
+    for (int i = 0; i < ranges.size(); i++) {
+        std::cout<<ranges[i]<<",";
+    }
+    std::cout<<"]";
+}
+
 void Cluster::PopulateChildren() {
     for (int i = 0; i < dimension; i++) {
         PopulateChildren(i);
@@ -93,9 +99,15 @@ void Cluster::PopulateChildren(unsigned int d) {
     if (search_result.size() == 2 && search_result[0] != this) {
         search_result[1]->SetParent(d, this);
         SetChild(d, LEFT, search_result[1]);
+        // PrintRanges(left_ranges);
     } else { // it has not been added before
+        // PrintRanges(left_ranges);
         DataPoint *left_anchor = new DataPoint(*anchor);
-        left_anchor->SetStringValue(d, config->GetCutoffs(d)[(left_ranges[start_index] + left_ranges[end_index]) / 2]);
+        if (left_ranges[start_index] < left_ranges[end_index]) {
+            left_anchor->SetStringValue(d, config->GetCutoffs(d)[(left_ranges[start_index] + left_ranges[end_index]) / 2]);
+        } else {
+            left_anchor->SetStringValue(d, "");
+        }
         Cluster *left = new Cluster(dimension, left_ranges, graph, config, left_anchor);
         left->SetParent(d, this);
         SetChild(d, LEFT, left);
@@ -110,14 +122,16 @@ void Cluster::PopulateChildren(unsigned int d) {
     if (search_result.size() == 2 && search_result[0] != this) {
         search_result[1]->SetParent(d, this);
         SetChild(d, RIGHT, search_result[1]);
+        // PrintRanges(right_ranges);
     } else { // it has not been added before
+        // PrintRanges(left_ranges);
         DataPoint *right_anchor = new DataPoint(*anchor);
         if (right_ranges[start_index] < right_ranges[end_index]) {
             right_anchor->SetStringValue(d,
                                          config->GetCutoffs(d)[(right_ranges[start_index] + right_ranges[end_index]) /
                                                                2]);
         } else {
-            right_anchor->SetStringValue(d, NULL);
+            right_anchor->SetStringValue(d, "");
         }
         Cluster *right = new Cluster(dimension, right_ranges, graph, config, right_anchor);
         right->SetParent(d, this);
@@ -161,40 +175,42 @@ ClusterGraph::~ClusterGraph() {
 }
 
 std::vector<Cluster *> ClusterGraph::Search(std::vector<unsigned int> ranges) {
+    std::vector<Cluster *> result;
     Cluster *parent = nullptr;
     Cluster *target = root;
     for (int i = 0; i < dimension; i++) {
+        unsigned int target_left;
+        unsigned int target_right;
         while (true) {
             if (target == nullptr) {
                 // search fails
-                return std::vector<Cluster *>();
+                return result;
             }
-            unsigned int target_left = target->GetRanges()[i * 2];
-            unsigned int target_right = target->GetRanges()[i * 2 + 1];
-            // go the left child
-            if (target_right > target_left && ranges[i * 2 + 1] <= ((target_left + target_right) / 2)) {
+            target_left = target->GetRanges()[i * 2];
+            target_right = target->GetRanges()[i * 2 + 1];
+            if (ranges[i * 2] == target_left && ranges[i * 2 + 1] == target_right) {
+                // find matching in this dimension, search in the next dimension, i++
+                break;
+            } else if (target_right > target_left && ranges[i * 2 + 1] <= ((target_left + target_right) / 2)) {
+                // go the left child
                 parent = target;
                 target = target->GetBranch(i).GetLeft();
             } else if (target_right > target_left && ranges[i * 2] >= ((target_left + target_right) / 2 + 1)) {
                 // go the right child
                 parent = target;
                 target = target->GetBranch(i).GetRight();
-            } else if (ranges[i * 2] == target_left && ranges[i * 2 + 1] == target_right) {
-                //match this, i++
-                break;
             } else {
                 // search fails
-                return std::vector<Cluster *>();
+                return result;
             }
         }
-        std::vector<Cluster *> result(2);
-        result[0] = parent;
-        result[1] = target;
-        return result;
     }
+    // std::vector<Cluster *> result(2);
+    result.push_back(parent);
+    result.push_back(target);
+    return result;
 
-
-    return std::vector<Cluster *>();
+    // return std::vector<Cluster *>();
 }
 
 void ClusterGraph::PopulateChildren() {
@@ -205,6 +221,6 @@ Cluster *ClusterGraph::GetRoot() {
     return root;
 }
 
-
-
-
+const unsigned int ClusterGraph::GetDimension() const {
+    return dimension;
+}
