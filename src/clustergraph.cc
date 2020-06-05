@@ -1,10 +1,12 @@
 #include "clustergraph.h"
 
+#include <utility>
+
 // #include <utility>
 
 Cluster::Cluster(unsigned int d, std::vector<unsigned int> r, ClusterGraph *g, Config *conf,
                  DataPoint *anch) :
-        dimension(d), ranges(r), graph(g), config(conf) {
+        dimension(d), ranges(std::move(r)), graph(g), config(conf) {
     count = 0;
     anchor = anch;
     for (int i = 0; i < dimension; ++i) {
@@ -35,11 +37,11 @@ void Cluster::SetChild(unsigned int d, BranchDirection direction, Cluster *p) {
     }
 }
 
-void Cluster::SetAnchor(DataPoint *anchor) {
-    Cluster::anchor = anchor;
+void Cluster::SetAnchor(DataPoint *anch) {
+    Cluster::anchor = anch;
 }
 
-const unsigned int Cluster::GetDimension() const {
+unsigned int Cluster::GetDimension() const {
     return dimension;
 }
 
@@ -51,7 +53,7 @@ std::vector<Cluster *> Cluster::GetParents() const {
     return parents;
 }
 
-Branch Cluster::GetBranch(unsigned int d) const {
+Branch Cluster::GetChildren(unsigned int d) const {
     return children[d];
 }
 
@@ -67,14 +69,6 @@ const std::vector<unsigned int> &Cluster::GetRanges() const {
     return ranges;
 }
 
-void PrintRanges(const std::vector<unsigned int> ranges){
-    std::cout<<"[";
-    for (int i = 0; i < ranges.size(); i++) {
-        std::cout<<ranges[i]<<",";
-    }
-    std::cout<<"]";
-}
-
 void Cluster::PopulateChildren() {
     for (int i = 0; i < dimension; i++) {
         PopulateChildren(i);
@@ -82,58 +76,55 @@ void Cluster::PopulateChildren() {
 }
 
 void Cluster::PopulateChildren(unsigned int d) {
-    const unsigned int start_index = d * 2;
+    const unsigned int start_index = d * 2; // if there are 2 dimensions, the ranges look like: [0, 2, 0, 5]
     const unsigned int end_index = start_index + 1;
     const unsigned int start = ranges[start_index];
     const unsigned int end = ranges[end_index];
-    // if the length of cutoff[d] is 1, it is a leaf cluster in this dimension, no need to populate children
+    // if the length of cutoff[d] is 1, it is a leaf cluster in this dimension, this cluster has no children in this dimension
     if (start >= end) {
         return;
     }
-    // left
+    // add the left child
     std::vector<unsigned int> left_ranges = ranges;
     left_ranges[end_index] = (start + end) / 2;
     // check if the left child has been added to the graph
     std::vector<Cluster *> search_result = graph->Search(left_ranges);
-    // it has been added before
-    if (search_result.size() == 2 && search_result[0] != this) {
+    if (search_result.size() == 2 && search_result[0] != this) { // it has been added before
         search_result[1]->SetParent(d, this);
         SetChild(d, LEFT, search_result[1]);
-        // PrintRanges(left_ranges);
     } else { // it has not been added before
-        // PrintRanges(left_ranges);
-        DataPoint *left_anchor = new DataPoint(*anchor);
+        // build the anchor for the left child
+        auto *left_anchor = new DataPoint(*anchor);
         if (left_ranges[start_index] < left_ranges[end_index]) {
-            left_anchor->SetStringValue(d, config->GetCutoffs(d)[(left_ranges[start_index] + left_ranges[end_index]) / 2]);
+            left_anchor->SetStringValue(d,
+                                        config->GetCutoffs(d)[(left_ranges[start_index] + left_ranges[end_index]) / 2]);
         } else {
-            left_anchor->SetStringValue(d, "");
+            left_anchor->SetStringValue(d, ""); // the left child is an leaf node and has no anchor value
         }
-        Cluster *left = new Cluster(dimension, left_ranges, graph, config, left_anchor);
+        auto *left = new Cluster(dimension, left_ranges, graph, config, left_anchor);
         left->SetParent(d, this);
         SetChild(d, LEFT, left);
-        left->PopulateChildren();
+        left->PopulateChildren(); // DFS
     }
-    //right
+    // add the right child
     std::vector<unsigned int> right_ranges = ranges;
     right_ranges[start_index] = (start + end) / 2 + 1;
     // check if the right child has been added to the graph
     search_result = graph->Search(right_ranges);
-    // it has been added before
-    if (search_result.size() == 2 && search_result[0] != this) {
+    if (search_result.size() == 2 && search_result[0] != this) { // it has been added before
         search_result[1]->SetParent(d, this);
         SetChild(d, RIGHT, search_result[1]);
-        // PrintRanges(right_ranges);
     } else { // it has not been added before
-        // PrintRanges(left_ranges);
-        DataPoint *right_anchor = new DataPoint(*anchor);
+        // build the anchor for the right child
+        auto *right_anchor = new DataPoint(*anchor);
         if (right_ranges[start_index] < right_ranges[end_index]) {
             right_anchor->SetStringValue(d,
                                          config->GetCutoffs(d)[(right_ranges[start_index] + right_ranges[end_index]) /
                                                                2]);
         } else {
-            right_anchor->SetStringValue(d, "");
+            right_anchor->SetStringValue(d, ""); // the right child is an leaf node and has no anchor value
         }
-        Cluster *right = new Cluster(dimension, right_ranges, graph, config, right_anchor);
+        auto *right = new Cluster(dimension, right_ranges, graph, config, right_anchor);
         right->SetParent(d, this);
         SetChild(d, RIGHT, right);
         right->PopulateChildren();
@@ -160,7 +151,7 @@ Cluster *Branch::GetRight() {
 
 ClusterGraph::ClusterGraph(Config *conf) : dimension(conf->GetNumAttrs()) {
     std::vector<unsigned int> ranges(dimension * 2, 0);
-    DataPoint *anchor = new DataPoint(dimension);
+    auto *anchor = new DataPoint(dimension);
     for (unsigned int i = 0; i < dimension; i++) {
         ranges[i * 2 + 1] = conf->GetCutoffs(i).size();
         anchor->SetStringValue(i, conf->GetCutoffs(i)[conf->GetCutoffs(i).size() / 2]);
@@ -175,42 +166,38 @@ ClusterGraph::~ClusterGraph() {
 }
 
 std::vector<Cluster *> ClusterGraph::Search(std::vector<unsigned int> ranges) {
-    std::vector<Cluster *> result;
+    std::vector<Cluster *> result; // if found, return [parent, target]; if not found, return []
     Cluster *parent = nullptr;
     Cluster *target = root;
-    for (int i = 0; i < dimension; i++) {
+    for (int i = 0; i < dimension; i++) { // find matching in order: dimension 0 -> 1 -> 2 ...
         unsigned int target_left;
         unsigned int target_right;
         while (true) {
-            if (target == nullptr) {
-                // search fails
+            if (target == nullptr) {// search fails
                 return result;
             }
             target_left = target->GetRanges()[i * 2];
             target_right = target->GetRanges()[i * 2 + 1];
             if (ranges[i * 2] == target_left && ranges[i * 2 + 1] == target_right) {
-                // find matching in this dimension, search in the next dimension, i++
+                // matching is found in dimension, i++
                 break;
             } else if (target_right > target_left && ranges[i * 2 + 1] <= ((target_left + target_right) / 2)) {
                 // go the left child
                 parent = target;
-                target = target->GetBranch(i).GetLeft();
+                target = target->GetChildren(i).GetLeft();
             } else if (target_right > target_left && ranges[i * 2] >= ((target_left + target_right) / 2 + 1)) {
                 // go the right child
                 parent = target;
-                target = target->GetBranch(i).GetRight();
-            } else {
-                // search fails
+                target = target->GetChildren(i).GetRight();
+            } else { // search fails
                 return result;
             }
         }
     }
-    // std::vector<Cluster *> result(2);
+    // return [parent, target]
     result.push_back(parent);
     result.push_back(target);
     return result;
-
-    // return std::vector<Cluster *>();
 }
 
 void ClusterGraph::PopulateChildren() {
@@ -221,6 +208,6 @@ Cluster *ClusterGraph::GetRoot() {
     return root;
 }
 
-const unsigned int ClusterGraph::GetDimension() const {
+unsigned int ClusterGraph::GetDimension() const {
     return dimension;
 }
