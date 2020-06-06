@@ -35,8 +35,9 @@ add_library(compare src/compare.cc)
 add_library(config src/config.cc)
 add_library(clustergraph src/clustergraph.cc)
 
-#add_executable...
-#target_link_libraries
+#add_executable
+add_executable(main src/main.cc)
+target_link_libraries(main compare datapoint config clustergraph dataparser)
 
 #add test executables
 add_executable(datapoint_test tests/datapoint_test.cc)

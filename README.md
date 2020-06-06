@@ -15,7 +15,7 @@
 
 * Ensure all dependencies are installed on the target machine (see Dockerfile for a list, namely googletest).
 * Browse to _build_ directory from the root of the repository.
-``` cd buld ```
+``` cd build ```
 * Run the following command to execute all unit tests:
 ``` make test ```
 
@@ -33,18 +33,34 @@ docker build -t scalable-clustering:base -f docker/base.Dockerfile .
 ```
 docker build -t scalable-clustering:latest -f docker/Dockerfile .
 ```
-* Run the production container to ensure it is working properly.
+* Build the example container. This containers runs clustering on a COVID data set (https://www.google.com/covid19/mobility/?fbclid=IwAR3vfMCCY4iFQCB3I-m8BlMGVvfJArJjwupRUVEvaCE7ER6-tQzbZZpP2rY)
 ```
-docker run --name scalable-clustering -d scalable-clustering:latest
+docker build -t scalable-clustering:covid -f docker/COVID.Dockerfile .
+```
+* Run the production/example container to ensure it is working properly.
+```
+docker run --name scalable-clustering -d scalable-clustering:[latest/example]
 ```
 
 ## Configuration
 
 The application takes as input a config file. This config file is passed as a command line argument to the main executable as follows:
-[TODO]
+```
+main [path_to_config]
+```
 
 Below is a sample config file, which is explained in detail:
-[TODO]
+```
+DATA_START=1
+NUM_ATTRS=3
+DATA_INDICES=4,9,10
+DATA_TYPES=DATA_DATE,DATA_INT,DATA_INT
+CUTOFF_VALS=[],[],[]
+DATA_PATH=Global_Mobility_Report.csv
+THRESHOLD=80
+REPORT_PATH=covid_report.txt
+
+```
 
 ### Config Parameters
 
@@ -54,6 +70,7 @@ Below is a sample config file, which is explained in detail:
 * _DATA_TYPES_ => The types of each column that is used for the clustering algorithm (Comma-Separated list of Strings). See [TODO] for a list of supported data types.
 * _CUTOFF_VALS_ => The cutoff values for each column that define the clusters for the algorithm. Each array is interpreted as a binary tree in array form. (Comma-Separated list of Arrays of Strings)
 * _DATA_PATH_ => Path to the input data set file (String)
+* _THRESHOLD_ => Threshold value to use to identify "interesting" clusters (Double)
 * _REPORT_PATH_ => Path to the output report file (String)
 
 ## Authors
