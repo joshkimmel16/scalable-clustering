@@ -127,6 +127,10 @@ void Cluster::IncrementCount() {
     count++;
 }
 
+void Cluster::SetCount(unsigned int c) {
+    count = c;
+}
+
 void Cluster::SetFlag(const unsigned int &d, const int &flag) {
     flags[d] = flag;
 }

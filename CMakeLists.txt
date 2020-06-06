@@ -34,6 +34,7 @@ add_library(dataparser src/dataparser.cc)
 add_library(compare src/compare.cc)
 add_library(config src/config.cc)
 add_library(clustergraph src/clustergraph.cc)
+add_library(reporter src/reporter.cc)
 
 #add_executable...
 #target_link_libraries
