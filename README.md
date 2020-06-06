@@ -27,7 +27,7 @@ The following section details how to prepare the production docker container.
 * Browse to the root directory of the application.
 * Build the base container. This container is used solely to install dependencies.
 ```
-docker build -t scalable-clustering:base -f docker/dockerfile_build .
+docker build -t scalable-clustering:base -f docker/base.Dockerfile .
 ```
 * Build the main container. This is the container to be deployed for production use.
 ```
