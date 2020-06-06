@@ -6,10 +6,10 @@
 
 Cluster::Cluster(unsigned int d, std::vector<unsigned int> r, ClusterGraph *g, Config *conf,
                  DataPoint *anch) :
-        dimension(d), ranges(std::move(r)), graph(g), config(conf) {
+        dimension(d), ranges(std::move(r)), graph(g), config(conf), anchor(anch) {
     count = 0;
-    anchor = anch;
     for (int i = 0; i < dimension; ++i) {
+        flags.push_back(0);
         parents.push_back(nullptr);
         Branch branch;
         children.push_back(branch);
@@ -20,62 +20,14 @@ Cluster::~Cluster() {
     delete anchor;
 }
 
-void Cluster::SetParent(unsigned int d, Cluster *p) {
-    parents[d] = p;
-}
-
-void Cluster::SetChild(unsigned int d, BranchDirection direction, Cluster *p) {
-    switch (direction) {
-        case LEFT:
-            children[d].SetLeft(p);
-            break;
-        case RIGHT:
-            children[d].SetRight(p);
-            break;
-        default:
-            break;
-    }
-}
-
-void Cluster::SetAnchor(DataPoint *anch) {
-    Cluster::anchor = anch;
-}
-
-unsigned int Cluster::GetDimension() const {
-    return dimension;
-}
-
-Cluster *Cluster::GetParent(unsigned int d) const {
-    return parents[d];
-}
-
-std::vector<Cluster *> Cluster::GetParents() const {
-    return parents;
-}
-
-Branch Cluster::GetChildren(unsigned int d) const {
-    return children[d];
-}
-
-std::vector<Branch> Cluster::GetChildren() const {
-    return children;
-}
-
-DataPoint *Cluster::GetAnchor() const {
-    return anchor;
-}
-
-const std::vector<unsigned int> &Cluster::GetRanges() const {
-    return ranges;
-}
 
 void Cluster::PopulateChildren() {
-    for (int i = 0; i < dimension; i++) {
-        PopulateChildren(i);
+    for (int d = 0; d < dimension; d++) {
+        PopulateChildren(d);
     }
 }
 
-void Cluster::PopulateChildren(unsigned int d) {
+void Cluster::PopulateChildren(const unsigned int &d) {
     const unsigned int start_index = d * 2; // if there are 2 dimensions, the ranges look like: [0, 2, 0, 5]
     const unsigned int end_index = start_index + 1;
     const unsigned int start = ranges[start_index];
@@ -131,6 +83,103 @@ void Cluster::PopulateChildren(unsigned int d) {
     }
 }
 
+void Cluster::ProcessDataPoint(const int &id, DataPoint *p) {
+    // flags[0] is set to id once a datapoint has been visited.
+    if (flags[0] == id) {
+        return;
+    }
+    // count++
+    IncrementCount();
+    SetFlag(0, id);
+    for (int d = 0; d < dimension; d++) {
+        // leaf node in dimension d
+        if (anchor->GetStringValue(d).empty()) {
+            continue;
+        }
+        // NOT leaf node in dimension d
+        unsigned int result = Compare(anchor, p, d, config->GetDataType(d));
+        if (result == 1) { // left
+            GetChild(d, LEFT)->ProcessDataPoint(id, p);
+        } else if (result == 2) { // right
+            GetChild(d, RIGHT)->ProcessDataPoint(id, p);
+        }
+    }
+}
+
+void Cluster::SetParent(const unsigned int &d, Cluster *p) {
+    parents[d] = p;
+}
+
+void Cluster::SetChild(const unsigned int &d, BranchDirection direction, Cluster *p) {
+    switch (direction) {
+        case LEFT:
+            children[d].SetLeft(p);
+            break;
+        case RIGHT:
+            children[d].SetRight(p);
+            break;
+        default:
+            break;
+    }
+}
+
+void Cluster::IncrementCount() {
+    count++;
+}
+
+void Cluster::SetFlag(const unsigned int &d, const int &flag) {
+    flags[d] = flag;
+}
+
+void Cluster::SetFlags(const int &flag) {
+    std::fill(flags.begin(), flags.end(), flag);
+}
+
+void Cluster::ResetFlags() {
+    std::fill(flags.begin(), flags.end(), 0);
+}
+
+
+unsigned int Cluster::GetDimension() const {
+    return dimension;
+}
+
+std::vector<Cluster *> Cluster::GetParents() const {
+    return parents;
+}
+
+Cluster *Cluster::GetParent(const unsigned int &d) const {
+    return parents[d];
+}
+
+
+std::vector<Branch> Cluster::GetChildren() const {
+    return children;
+}
+
+Branch Cluster::GetChildren(const unsigned int &d) const {
+    return children[d];
+}
+
+Cluster *Cluster::GetChild(const unsigned int &d, BranchDirection direction) const {
+    return (direction == LEFT ? children[d].GetLeft() : children[d].GetRight());
+}
+
+DataPoint *Cluster::GetAnchor() const {
+    return anchor;
+}
+
+const std::vector<unsigned int> &Cluster::GetRanges() const {
+    return ranges;
+}
+
+unsigned int Cluster::GetCount() const {
+    return count;
+}
+
+const int &Cluster::GetFlag(const unsigned int &d) const {
+    return flags[d];
+}
 
 void Branch::SetLeft(Cluster *p) {
     left = p;
@@ -140,11 +189,11 @@ void Branch::SetRight(Cluster *p) {
     right = p;
 }
 
-Cluster *Branch::GetLeft() {
+Cluster *Branch::GetLeft() const {
     return left;
 }
 
-Cluster *Branch::GetRight() {
+Cluster *Branch::GetRight() const {
     return right;
 }
 
@@ -152,12 +201,11 @@ Cluster *Branch::GetRight() {
 ClusterGraph::ClusterGraph(Config *conf) : dimension(conf->GetNumAttrs()) {
     std::vector<unsigned int> ranges(dimension * 2, 0);
     auto *anchor = new DataPoint(dimension);
-    for (unsigned int i = 0; i < dimension; i++) {
-        ranges[i * 2 + 1] = conf->GetCutoffs(i).size();
-        anchor->SetStringValue(i, conf->GetCutoffs(i)[conf->GetCutoffs(i).size() / 2]);
+    for (unsigned int d = 0; d < dimension; d++) {
+        ranges[d * 2 + 1] = conf->GetCutoffs(d).size();
+        anchor->SetStringValue(d, conf->GetCutoffs(d)[conf->GetCutoffs(d).size() / 2]);
     }
     root = new Cluster(dimension, ranges, this, conf, anchor);
-//    std::cout << dimension << "ZZX";
 }
 
 ClusterGraph::~ClusterGraph() {
@@ -169,26 +217,26 @@ std::vector<Cluster *> ClusterGraph::Search(std::vector<unsigned int> ranges) {
     std::vector<Cluster *> result; // if found, return [parent, target]; if not found, return []
     Cluster *parent = nullptr;
     Cluster *target = root;
-    for (int i = 0; i < dimension; i++) { // find matching in order: dimension 0 -> 1 -> 2 ...
+    for (int d = 0; d < dimension; d++) { // find matching in order: dimension 0 -> 1 -> 2 ...
         unsigned int target_left;
         unsigned int target_right;
         while (true) {
             if (target == nullptr) {// search fails
                 return result;
             }
-            target_left = target->GetRanges()[i * 2];
-            target_right = target->GetRanges()[i * 2 + 1];
-            if (ranges[i * 2] == target_left && ranges[i * 2 + 1] == target_right) {
+            target_left = target->GetRanges()[d * 2];
+            target_right = target->GetRanges()[d * 2 + 1];
+            if (ranges[d * 2] == target_left && ranges[d * 2 + 1] == target_right) {
                 // matching is found in dimension, i++
                 break;
-            } else if (target_right > target_left && ranges[i * 2 + 1] <= ((target_left + target_right) / 2)) {
+            } else if (target_right > target_left && ranges[d * 2 + 1] <= ((target_left + target_right) / 2)) {
                 // go the left child
                 parent = target;
-                target = target->GetChildren(i).GetLeft();
-            } else if (target_right > target_left && ranges[i * 2] >= ((target_left + target_right) / 2 + 1)) {
+                target = target->GetChildren(d).GetLeft();
+            } else if (target_right > target_left && ranges[d * 2] >= ((target_left + target_right) / 2 + 1)) {
                 // go the right child
                 parent = target;
-                target = target->GetChildren(i).GetRight();
+                target = target->GetChildren(d).GetRight();
             } else { // search fails
                 return result;
             }
@@ -204,6 +252,10 @@ void ClusterGraph::PopulateChildren() {
     root->PopulateChildren();
 }
 
+void ClusterGraph::ProcessDataPoint(const int &id, DataPoint *p) {
+    root->ProcessDataPoint(id, p);
+}
+
 Cluster *ClusterGraph::GetRoot() {
     return root;
 }
@@ -211,3 +263,5 @@ Cluster *ClusterGraph::GetRoot() {
 unsigned int ClusterGraph::GetDimension() const {
     return dimension;
 }
+
+
