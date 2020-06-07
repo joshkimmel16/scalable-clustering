@@ -32,6 +32,8 @@ TEST_F(ConfigTest, StateFromString) {
   std::string s6 = "DATA_PATH";
   std::string s7 = "REPORT_PATH";
   std::string s8 = "THRESHOLD";
+  std::string s9 = "NULL_ACTION";
+  std::string s10 = "DEFAULT_VALS";
   
   EXPECT_EQ(StateFromString(s1), DATA_START);
   EXPECT_EQ(StateFromString(s2), DATA_INDICES);
@@ -41,6 +43,17 @@ TEST_F(ConfigTest, StateFromString) {
   EXPECT_EQ(StateFromString(s6), DATA_PATH);
   EXPECT_EQ(StateFromString(s7), REPORT_PATH);
   EXPECT_EQ(StateFromString(s8), THRESHOLD);
+  EXPECT_EQ(StateFromString(s9), NULL_ACTION);
+  EXPECT_EQ(StateFromString(s10), DEFAULT_VALS);
+}
+
+//ActionFromString test
+TEST_F(ConfigTest, ActionFromString) {
+    std::string t1 = "ACTION_OMIT";
+    std::string t2 = "ACTION_DEFAULT";
+
+    EXPECT_EQ(ActionFromString(t1), ACTION_OMIT);
+    EXPECT_EQ(ActionFromString(t2), ACTION_DEFAULT);
 }
 
 //Config internal functions
@@ -65,6 +78,9 @@ TEST_F(ConfigTest, Config) {
     c.SetReportPath("path_to_report.txt");
 
     c.SetThreshold("0.67");
+
+    c.SetNullAction("ACTION_OMIT");
+    c.AddDefaultVal("blah");
     
     EXPECT_EQ(c.GetDataStart(), 1);
     EXPECT_EQ(c.GetNumAttrs(), 3);
@@ -72,6 +88,8 @@ TEST_F(ConfigTest, Config) {
     EXPECT_EQ(c.GetDataPath(), "path_to_data.csv");
     EXPECT_EQ(c.GetReportPath(), "path_to_report.txt");
     EXPECT_EQ(c.GetThreshold(), 0.67);
+    EXPECT_EQ(c.GetNullAction(), ACTION_OMIT);
+    EXPECT_EQ(c.GetDefaultVal(0), "blah");
     
     std::vector<unsigned int> c1 = c.GetDataIndices();
     EXPECT_EQ(c1[0], 0);
@@ -133,6 +151,18 @@ TEST_F(ConfigTest, ReadLine) {
     std::vector<std::string> o8 = ReadLine(i8);
     EXPECT_EQ(o8[0], "THRESHOLD");
     EXPECT_EQ(o8[1], "1.67");
+
+    std::string t9 = "NULL_ACTION=ACTION_OMIT\n";
+    std::istringstream* i9 = new std::istringstream(t9);
+    std::vector<std::string> o9 = ReadLine(i9);
+    EXPECT_EQ(o9[0], "NULL_ACTION");
+    EXPECT_EQ(o9[1], "ACTION_OMIT");
+
+    std::string t10 = "DEFAULT_VALS=blah,0,1.5\n";
+    std::istringstream* i10 = new std::istringstream(t10);
+    std::vector<std::string> o10 = ReadLine(i10);
+    EXPECT_EQ(o10[0], "DEFAULT_VALS");
+    EXPECT_EQ(o10[1], "blah,0,1.5");
 }
 
 //SetConfigVal tests
@@ -180,6 +210,16 @@ TEST_F(ConfigTest, SetConfigVal) {
     std::vector<std::string> t8 { "THRESHOLD", "1.67" };
     SetConfigVal(t8, c);
     EXPECT_EQ(c->GetThreshold(), 1.67);
+
+    std::vector<std::string> t9 { "NULL_ACTION", "ACTION_OMIT" };
+    SetConfigVal(t9, c);
+    EXPECT_EQ(c->GetNullAction(), ACTION_OMIT);
+
+    std::vector<std::string> t10 { "DEFAULT_VALS", "blah,0,1.5" };
+    SetConfigVal(t10, c);
+    EXPECT_EQ(c->GetDefaultVal(0), "blah");
+    EXPECT_EQ(c->GetDefaultVal(1), "0");
+    EXPECT_EQ(c->GetDefaultVal(2), "1.5");
 }
 
 //ReadLine function
@@ -200,6 +240,11 @@ TEST_F(ConfigTest, Parse) {
     EXPECT_EQ(c->GetReportPath(), "path_to_report.txt");
 
     EXPECT_EQ(c->GetThreshold(), 1.67);
+
+    EXPECT_EQ(c->GetNullAction(), ACTION_DEFAULT);
+    EXPECT_EQ(c->GetDefaultVal(0), "blah");
+    EXPECT_EQ(c->GetDefaultVal(1), "0");
+    EXPECT_EQ(c->GetDefaultVal(2), "1.5");
     
     std::vector<unsigned int> c1 = c->GetDataIndices();
     EXPECT_EQ(c1[0], 0);

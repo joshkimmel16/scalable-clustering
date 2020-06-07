@@ -58,6 +58,7 @@ DATA_TYPES=DATA_DATE,DATA_INT,DATA_INT
 CUTOFF_VALS=[],[],[]
 DATA_PATH=Global_Mobility_Report.csv
 THRESHOLD=80
+NULL_ACTION=ACTION_OMIT
 REPORT_PATH=covid_report.txt
 
 ```
@@ -67,11 +68,25 @@ REPORT_PATH=covid_report.txt
 * _DATA_START_ => The line of the input data set file that contains row 1 of the data (Int)
 * _DATA_INDICES_ => The columns (starting at 0) of the input data set to use for the clustering algorithm (Comma-Separated List of Ints)
 * _NUM_ATTRS_ => The number of columns (dimensions) that are used for the clustering algorithm (Int)
-* _DATA_TYPES_ => The types of each column that is used for the clustering algorithm (Comma-Separated list of Strings). See [TODO] for a list of supported data types.
+* _DATA_TYPES_ => The types of each column that is used for the clustering algorithm (Comma-Separated list of Strings). See below for a list of supported data types.
 * _CUTOFF_VALS_ => The cutoff values for each column that define the clusters for the algorithm. Each array is interpreted as a binary tree in array form. (Comma-Separated list of Arrays of Strings)
 * _DATA_PATH_ => Path to the input data set file (String)
 * _THRESHOLD_ => Threshold value to use to identify "interesting" clusters (Double)
+* _NULL_ACTION_ => Defines how to handle missing/null values for rows in the data set. See below for a list of supported actions (String)
+* _DEFAULT_VALS_ => The values to use as defaults for each dimension when a null/missing value is encountered. Only honored if NULL_ACTION is ACTION_DEFAULT (Comma-Separated List of Strings)
 * _REPORT_PATH_ => Path to the output report file (String)
+
+#### Supported Data Types
+
+* DATA_STRING (treated as std::string for comparisons)
+* DATA_INT (treated as int for comparisons)
+* DATA_DOUBLE (treated as double for comparisons)
+* DATA_DATE (assumed to be m/d/yyyy)
+
+#### Supported Null Actions
+
+* ACTION_OMIT (skip any row where any dimension is null/missing)
+* ACTION_DEFAULT (replace all null/missing values with a default specified in DEFAULT_VALS)
 
 ## Authors
 

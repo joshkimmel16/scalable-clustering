@@ -75,6 +75,20 @@ void Config::SetThreshold (std::string t) {
     threshold = std::stod(t);
 }
 
+void Config::SetNullAction (std::string na) {
+    null_action = ActionFromString(na);
+}
+
+bool Config::AddDefaultVal (std::string dv) {
+    if (default_vals.size() < num_attrs) {
+        default_vals.push_back(dv);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 unsigned int Config::GetDataStart () {
     return data_start;
 }
@@ -107,6 +121,14 @@ double Config::GetThreshold () {
     return threshold;
 }
 
+NullAction Config::GetNullAction () {
+    return null_action;
+}
+
+std::string Config::GetDefaultVal (unsigned int index) {
+    return default_vals[index];
+}
+
 ParserState StateFromString (std::string state) {
     if (state == "DATA_START") {
         return DATA_START;
@@ -132,8 +154,26 @@ ParserState StateFromString (std::string state) {
     else if (state == "THRESHOLD") {
         return THRESHOLD;
     }
+    else if (state == "NULL_ACTION") {
+        return NULL_ACTION;
+    }
+    else if (state == "DEFAULT_VALS") {
+        return DEFAULT_VALS;
+    }
     else {
         return DATA_START;
+    }
+}
+
+NullAction ActionFromString (std::string action) {
+    if (action == "ACTION_OMIT") {
+        return ACTION_OMIT;
+    }
+    else if (action == "ACTION_DEFAULT") {
+        return ACTION_DEFAULT;
+    }
+    else {
+        return ACTION_OMIT;
     }
 }
 
@@ -244,6 +284,28 @@ void SetConfigVal (std::vector<std::string> line, Config* config) {
         case THRESHOLD:
         {
             config->SetThreshold(line[1]);
+            break;
+        }
+        case NULL_ACTION:
+        {
+            config->SetNullAction(line[1]);
+            break;
+        }
+        case DEFAULT_VALS:
+        {
+            std::string tmp4 = "";
+            for (unsigned int i=0; i<line[1].length(); i++) {
+                if (line[1][i] == ',') {
+                    config->AddDefaultVal(tmp4);
+                    tmp4 = "";
+                }
+                else {
+                    tmp4 += line[1][i];
+                }
+            }
+            if (tmp4 != "") {
+                config->AddDefaultVal(tmp4);
+            }
             break;
         }
         default:
