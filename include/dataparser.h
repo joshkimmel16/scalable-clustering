@@ -16,7 +16,7 @@ public:
     ~DataParser(); //destructor
     std::vector<std::string> GetAttrNames(); // Returns column header vector
     void LoadHeaders(); // Reads column headers into attrNames
-    unsigned int LoadNextDataBatch(); // Loads next bSize lines into rawData
+    unsigned int LoadNextDataBatch(ClusterGraph* outputGraph=nullptr); // Loads next bSize lines into rawData
     std::vector<std::vector<std::string>> GetRawData();
 
 private:
