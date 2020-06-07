@@ -18,12 +18,13 @@ void DataParser::LoadHeaders() {
         inputDataFile.open(dConf.GetDataPath());    // Open CSV file at filePath
     
     numAttributes = dConf.GetNumAttrs();
+    auto validColumns = dConf.GetDataIndices();
     attrNames = std::vector<std::string>();
     
     // Make sure the file is open
     if(!inputDataFile.is_open()) throw std::runtime_error("Could not open file");
     std::string line, colname, dataField;
-    int val;
+    unsigned int colIdx = 0;
 
     // Read the column headers
     if(inputDataFile.good())
@@ -31,9 +32,13 @@ void DataParser::LoadHeaders() {
         std::getline(inputDataFile, line);
         std::stringstream ss(line);
 
-        // Extract each column name
-        while(std::getline(ss, colname, ','))
-            attrNames.push_back(colname);
+        // Extract each (unignored) column name
+        while (std::getline(ss, colname, ',')) {
+            if (colIdx == validColumns[colIdx]) {
+                attrNames.push_back(colname);
+            }
+            colIdx++;
+        }
     }
 
     numAttributes = attrNames.size();
@@ -58,6 +63,7 @@ unsigned int DataParser::LoadNextDataBatch() {
     std::vector<std::string> csvRow(numAttributes);
     rawData = std::vector<std::vector<std::string>>(bSize, std::vector<std::string> (numAttributes));
     unsigned int colIdx, batchCount = 0;
+    auto validColumns = dConf.GetDataIndices();
 
     // Read data, line by line
     while(batchCount < bSize && std::getline(inputDataFile, line))
@@ -65,7 +71,9 @@ unsigned int DataParser::LoadNextDataBatch() {
         std::stringstream ss(line);
         colIdx = 0;
         while(std::getline(ss, dataField, ',')) {
-            csvRow[colIdx++] = dataField;
+            if (colIdx == validColumns[colIdx])
+                csvRow[colIdx] = dataField;
+            colIdx++;
         }
         rawData[batchCount++] = csvRow;
         lastLine++;
