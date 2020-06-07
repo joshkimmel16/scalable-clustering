@@ -10,6 +10,6 @@ RUN apt-get update && apt-get install -y \
     netcat \
     libboost-regex-dev \
     libboost-log-dev \
-#     libboost-signals-dev \ it is not in ubuntu:latest (ubuntu:20.04)
     libboost-system-dev \
-    libgtest-dev
+    libgtest-dev \
+    wget

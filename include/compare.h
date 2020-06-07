@@ -10,7 +10,21 @@
 enum DataType {
     DATA_STRING, 
     DATA_INT,
-    DATA_DOUBLE 
+    DATA_DOUBLE,
+    DATA_DATE
+};
+
+//define valid date formats
+enum DateFormat {
+    MONTH_DAY_YEAR
+};
+
+struct Date {
+    Date(std::string d, DateFormat format); //construct date from string
+    bool compare(Date& d); //compare to another date object
+    unsigned int month;
+    unsigned int day;
+    unsigned int year;
 };
 
 //generic compare method to help traverse the ClusterGraph
