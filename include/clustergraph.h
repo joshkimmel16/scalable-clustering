@@ -35,6 +35,7 @@ public:
     void SetChild(const unsigned int &d, BranchDirection direction,
                   Cluster *p); // setter for LEFT/RIGHT of children[d]
     void IncrementCount(); // count++
+    void SetCount(unsigned int c);
     void SetFlag(const unsigned int &d, const int &flag); // setter for flags[d]
     void SetFlags(const int &flag); // set every flag to the value
     void ResetFlags(); // reset every flag to 0
