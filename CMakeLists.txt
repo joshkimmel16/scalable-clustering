@@ -50,7 +50,7 @@ target_link_libraries(config_test config compare datapoint gtest_main)
 add_executable(clustergraph_test tests/clustergraph_test.cc)
 target_link_libraries(clustergraph_test clustergraph config compare datapoint gtest_main)
 add_executable(dataparser_test tests/dataparser_test.cc)
-target_link_libraries(dataparser_test dataparser config compare datapoint gtest_main)
+target_link_libraries(dataparser_test dataparser config compare datapoint clustergraph gtest_main)
 
 message(${CMAKE_CURRENT_SOURCE_DIR})
 #discover tests

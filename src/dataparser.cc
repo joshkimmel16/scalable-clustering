@@ -48,7 +48,7 @@ void DataParser::LoadHeaders() {
 
 }
 
-unsigned int DataParser::LoadNextDataBatch() {
+unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
     std::string line, dataField;
 
     if(!readComplete && !inputDataFile.is_open()) {
@@ -83,6 +83,17 @@ unsigned int DataParser::LoadNextDataBatch() {
         // Reached the end of the file, close it
         inputDataFile.close();
         readComplete = true;
+    }
+
+    // Feed data batch to cluster graph if one is specified
+    if (outputGraph != nullptr) {
+        for (int i = 0; i < batchCount; i++) {
+            DataPoint dp(numAttributes);
+            dp.PopulateRawData(rawData[i].data());
+            
+            // Id is effectively line # in file
+            outputGraph->ProcessDataPoint(lastLine-batchCount+i, &dp);
+        }
     }
     
     return batchCount;
