@@ -87,14 +87,16 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
                 
             colIdx++;
         }
-        
+
         // Check for case where last column was null
-        if (
-            colIdx != numAttributes &&
-            dataField.empty() &&
-            dConf.GetNullAction() == ACTION_DEFAULT) {
+        if (colIdx != numAttributes && dataField.empty()) {
+            if (dConf.GetNullAction() == ACTION_DEFAULT) {
                 csvRow[colIdx] = dConf.GetDefaultVal(colIdx);
             }
+            else {
+                validLine = false;
+            }
+        }
         
         // Only include row in batch if all values are present
         if (validLine)
