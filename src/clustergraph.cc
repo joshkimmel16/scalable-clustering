@@ -1,8 +1,6 @@
-#include "clustergraph.h"
-
 #include <utility>
 
-// #include <utility>
+#include "clustergraph.h"
 
 Cluster::Cluster(unsigned int d, std::vector<unsigned int> r, ClusterGraph *g, Config *conf,
                  DataPoint *anch) :
@@ -18,6 +16,33 @@ Cluster::Cluster(unsigned int d, std::vector<unsigned int> r, ClusterGraph *g, C
 
 Cluster::~Cluster() {
     delete anchor;
+    // recursively delete all children
+    for (int d = 0; d < dimension; d++) {
+        if (children[d].GetLeft() != nullptr) {
+            Cluster *left = children[d].GetLeft();
+            delete left;
+        }
+        if (children[d].GetRight() != nullptr) {
+            Cluster *right = children[d].GetRight();
+            delete right;
+        }
+    }
+    // nullify the pointers to itself in parent
+    for (int d = 0; d < dimension; d++) {
+        Cluster *parent = parents[d];
+        if (parent == nullptr) {
+            continue;
+        }
+        const unsigned int start_index = d * 2;
+        const unsigned int end_index = start_index + 1;
+        if (ranges[start_index] == parent->GetRanges()[start_index] &&
+            ranges[end_index] < parent->GetRanges()[end_index]) {
+            parent->SetChild(d, LEFT, nullptr);
+        } else if (ranges[start_index] > parent->GetRanges()[start_index] &&
+                   ranges[end_index] == parent->GetRanges()[end_index]) {
+            parent->SetChild(d, RIGHT, nullptr);
+        }
+    }
 }
 
 
@@ -213,8 +238,7 @@ ClusterGraph::ClusterGraph(Config *conf) : dimension(conf->GetNumAttrs()) {
 }
 
 ClusterGraph::~ClusterGraph() {
-    //TODO: recurse through graph deleting all clusters (use stack)
-    //be careful about only adding non-empty pointers onto the stack (since a cluster can have multiple parents)
+    delete root;
 }
 
 std::vector<Cluster *> ClusterGraph::Search(std::vector<unsigned int> ranges) {
