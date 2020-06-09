@@ -157,4 +157,12 @@ TEST_F(ClusterGraphTest, ClusterGraph) {
     EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(3, LEFT)->GetChild(2, RIGHT)->GetCount(), 0);
     EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(3, RIGHT)->GetChild(2, LEFT)->GetCount(), 0);
     EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(3, RIGHT)->GetChild(2, RIGHT)->GetCount(), 1);
+
+    // test pruning
+    Cluster *ptr = root->GetChild(1, LEFT)->GetChild(2, LEFT);
+    delete ptr;
+    EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(2, LEFT), nullptr);
+
+    // delete the whole graph
+    delete cluster_graph;
 }

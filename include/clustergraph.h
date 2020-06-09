@@ -71,8 +71,8 @@ public:
     ~Branch() {}; // destructor
     void SetLeft(Cluster *p); // setter for the left child
     void SetRight(Cluster *p); // setter for the right child
-    Cluster *GetLeft() const; // getter for the left child
-    Cluster *GetRight() const; // getter for the right child
+    Cluster * GetLeft() const; // getter for the left child
+    Cluster * GetRight() const; // getter for the right child
 private:
     Cluster *left;
     Cluster *right;
