@@ -19,9 +19,17 @@ enum ParserState {
     CUTOFF_VALS,
     DATA_PATH,
     REPORT_PATH,
-    THRESHOLD
+    THRESHOLD,
+    NULL_ACTION,
+    DEFAULT_VALS
 };
 ParserState StateFromString (std::string state); //get state from string
+
+enum NullAction {
+    ACTION_OMIT,
+    ACTION_DEFAULT
+};
+NullAction ActionFromString (std::string action); //get action from string
 
 class Config {
 public:
@@ -35,6 +43,8 @@ public:
     void SetDataPath (std::string dp); //setter for data_path
     void SetReportPath (std::string rp); //setter for report_path
     void SetThreshold (std::string t); //setter for threshold
+    void SetNullAction (std::string na); //setter for null_action
+    bool AddDefaultVal (std::string dv); //setter for default_vals
     unsigned int GetDataStart (); //return data_start
     std::vector<unsigned int> GetDataIndices(); //return data_indices
     unsigned int GetNumAttrs(); //return num_attrs
@@ -43,6 +53,8 @@ public:
     std::string GetDataPath(); //retrieve data_path
     std::string GetReportPath(); //retrieve report_path
     double GetThreshold(); //retrieve threshold
+    NullAction GetNullAction(); //retrieve null_action
+    std::string GetDefaultVal(unsigned int index); //retrieve default_val at given index
 private:
     unsigned int data_start;
     std::vector<unsigned int> data_indices;
@@ -52,6 +64,8 @@ private:
     std::string data_path;
     std::string report_path;
     double threshold;
+    NullAction null_action;
+    std::vector<std::string> default_vals;
 };
 
 std::vector<std::string> ReadLine (std::istream* input); //read a line from the config file

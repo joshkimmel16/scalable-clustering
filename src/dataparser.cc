@@ -70,12 +70,37 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
     {
         std::stringstream ss(line);
         colIdx = 0;
+        bool validLine = true;
         while(std::getline(ss, dataField, ',')) {
-            if (colIdx == validColumns[colIdx])
+            // Is this a column of interest?
+            if (colIdx == validColumns[colIdx]) {
+                // Null handling
+                if (dataField.empty()) {
+                    if (dConf.GetNullAction() == ACTION_OMIT) {
+                        validLine = false;
+                        break;
+                    }
+                    dataField = dConf.GetDefaultVal(colIdx);
+                }
                 csvRow[colIdx] = dataField;
+            }
+                
             colIdx++;
         }
-        rawData[batchCount++] = csvRow;
+
+        // Check for case where last column was null
+        if (colIdx != numAttributes && dataField.empty()) {
+            if (dConf.GetNullAction() == ACTION_DEFAULT) {
+                csvRow[colIdx] = dConf.GetDefaultVal(colIdx);
+            }
+            else {
+                validLine = false;
+            }
+        }
+        
+        // Only include row in batch if all values are present
+        if (validLine)
+            rawData[batchCount++] = csvRow;
         lastLine++;
     }
 
