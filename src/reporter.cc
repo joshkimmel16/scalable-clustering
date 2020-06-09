@@ -18,12 +18,12 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
     }
     else if (cluster->GetCount() > threshold) {
         for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr) {
                 if (!CompressClusterGraph(leftChild)) {
-                    delete cluster->GetChildren(i).GetLeft();
+                    delete leftChild;
                     cluster->GetChildren(i).SetLeft(nullptr);
                 }
             }
@@ -54,8 +54,8 @@ void Reporter::GenerateReport(Cluster * cluster) {
 
     bool isLeaf = true;
     for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr || rightChild != nullptr) {
                isLeaf = false;
@@ -67,8 +67,8 @@ void Reporter::GenerateReport(Cluster * cluster) {
     else {
         std::vector<unsigned int> sum(cluster->GetChildren().size(), 0);
         for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr) {
                 GenerateReport(leftChild);
