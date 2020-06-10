@@ -35,6 +35,10 @@ void DataParser::LoadHeaders() {
         // Extract each (unignored) column name
         while (std::getline(ss, colname, ',')) {
             if (colIdx == validColumns[colIdx]) {
+                // Remove CR if present
+                if (colname.back() == '\r')
+                    colname = colname.substr(0, colname.length()-1);
+                
                 attrNames.push_back(colname);
             }
             colIdx++;
@@ -74,6 +78,10 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
         while(std::getline(ss, dataField, ',')) {
             // Is this a column of interest?
             if (colIdx == validColumns[colIdx]) {
+                // Remove CR if present
+                if (dataField.back() == '\r')
+                    dataField = dataField.substr(0, dataField.length()-1);
+                
                 // Null handling
                 if (dataField.empty()) {
                     if (dConf.GetNullAction() == ACTION_OMIT) {

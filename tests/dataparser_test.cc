@@ -185,3 +185,34 @@ TEST_F(DataParserTest, NullHandlingTest) {
         trueOffset += readCount;
     }
 }
+
+// Test selective columns specified in config DATA_INDICES attribute
+TEST_F(DataParserTest, CarraigeReturnTest) {
+    unsigned int readCount, trueOffset = 1, batchSize = 1;
+    Parse("cr-test.conf", &c);
+    DataParser dp(c, batchSize);
+
+    std::vector<std::vector<std::string>> trueNullFills = {
+        {   "col1", "col2",  "col3"  },
+        {   "blah",    "1",  "1.54"  },
+        {   "j",       "0" , "1.555" },
+        {   "p",       "10", "1.5"   }};
+
+    dp.LoadHeaders();
+    while (readCount = dp.LoadNextDataBatch())
+    {
+        std::vector<std::vector<std::string>> testData = dp.GetRawData();
+        // Data match?
+        for (int row = 0; row < readCount; row++) {
+            for (int col = 0; col < testData[0].size(); col++) {
+                EXPECT_EQ(trueNullFills[trueOffset+row][col], testData[row][col])
+                << "Data at ["
+                << row
+                << "]["
+                << col
+                << "] is not equal.";
+            }
+        }
+        trueOffset += readCount;
+    }
+}
