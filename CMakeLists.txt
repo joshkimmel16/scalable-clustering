@@ -51,6 +51,8 @@ add_executable(clustergraph_test tests/clustergraph_test.cc)
 target_link_libraries(clustergraph_test clustergraph config compare datapoint gtest_main)
 add_executable(dataparser_test tests/dataparser_test.cc)
 target_link_libraries(dataparser_test dataparser config compare datapoint clustergraph gtest_main)
+add_executable(reporter_test tests/reporter_test.cc)
+target_link_libraries(reporter_test reporter dataparser config compare datapoint clustergraph gtest_main)
 
 message(${CMAKE_CURRENT_SOURCE_DIR})
 #discover tests
@@ -59,3 +61,4 @@ gtest_discover_tests(compare_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
 gtest_discover_tests(config_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(clustergraph_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(dataparser_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(reporter_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)

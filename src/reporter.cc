@@ -17,7 +17,7 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
         return true;
     }
     else if (cluster->GetCount() > threshold) {
-        for(int i=0; i < cluster->GetChildren().size(); i++) {
+        for(int i=0; i < cluster->GetDimension(); i++) {
             Cluster* leftChild = cluster->GetChild(i, LEFT);
             Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
@@ -53,7 +53,7 @@ void Reporter::GenerateReport(Cluster * cluster) {
     }
 
     bool isLeaf = true;
-    for(int i=0; i < cluster->GetChildren().size(); i++) {
+    for(int i=0; i < cluster->GetDimension(); i++) {
             Cluster* leftChild = cluster->GetChild(i, LEFT);
             Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
@@ -65,8 +65,8 @@ void Reporter::GenerateReport(Cluster * cluster) {
         reportedClusters.push_back(cluster);
     }
     else {
-        std::vector<unsigned int> sum(cluster->GetChildren().size(), 0);
-        for(int i=0; i < cluster->GetChildren().size(); i++) {
+        std::vector<unsigned int> sum(cluster->GetDimension(), 0);
+        for(int i=0; i < cluster->GetDimension(); i++) {
             Cluster* leftChild = cluster->GetChild(i, LEFT);
             Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
