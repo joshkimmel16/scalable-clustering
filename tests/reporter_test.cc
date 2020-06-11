@@ -65,22 +65,268 @@ protected:
 
 };
 
-TEST_F(ReporterTest, Test1) {
-    std::ofstream myfile;
+TEST_F(ReporterTest, SimpleGraphTest) {
+    std::vector<std::vector<unsigned int>> expectedResults {
+				{ 0,0,0,0 },
+                { 0,0,1,1 }
+			};
     Parse("test5.conf", &c);
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
 
-    unsigned int readCount, trueOffset = 1, batchSize = 10;
+    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 1;
     DataParser dp(c, batchSize);
 
     dp.LoadHeaders();
     
     while (readCount = dp.LoadNextDataBatch(cluster_graph))
     {
-    }    
+    }
+    std::cout << "Original Cluster Graph" << std::endl; 
     printClusterGraph(cluster_graph->GetRoot());
+
+    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    reporter->CompressClusterGraph();
+
+
+    std::cout << std::endl << std::endl << "Compressed Cluster Graph" << std::endl;
+    printClusterGraph(cluster_graph->GetRoot());
+
+    std::cout << "Report: " <<std::endl;
+    std::vector<Cluster *> * report = reporter->GenerateReport();
+    for (int i=0; i < report->size(); i++) {
+        std::cout << "Cluster: " << std::endl;
+        std::cout << "Count: " << (*report)[i]->GetCount() << std::endl;
+        std::cout << "Range: ";
+        for (int j=0; j < (*report)[i]->GetRanges().size(); j++)
+                        std::cout << (*report)[i]->GetRanges()[j] << " ";
+        std::cout << std::endl;
+    }
+
+    for (int i=0; i < report->size(); i++) {
+        bool foundMatch = false;
+        for(int j=0; j < expectedResults.size(); j++) {
+            EXPECT_EQ((*report)[i]->GetRanges().size(), expectedResults[j].size());
+            bool flag = true;
+            for(int k = 0; k < expectedResults[j].size(); k++) {
+                if ((*report)[i]->GetRanges()[k] != expectedResults[j][k]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                expectedResults.erase(expectedResults.begin() + j);
+                foundMatch = true;
+                break;
+            }
+            EXPECT_EQ(true, foundMatch);
+        }
+    }
+
+    delete reporter;
+    delete cluster_graph;
+}
+
+
+TEST_F(ReporterTest, OneDimensionTest) {
+    std::vector<std::vector<unsigned int>> expectedResults {
+				{ 0,7 },
+                { 8,8 },
+				{ 9,9 },
+                { 8,15 }
+			};
+    Parse("test6.conf", &c);
+    ClusterGraph * cluster_graph = new ClusterGraph(&c);
+    cluster_graph->PopulateChildren();
+
+    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 10;
+    DataParser dp(c, batchSize);
+
+    dp.LoadHeaders();
     
+    while (readCount = dp.LoadNextDataBatch(cluster_graph))
+    {
+    }
+    std::cout << "Original Cluster Graph" << std::endl; 
+    printClusterGraph(cluster_graph->GetRoot());
+
+    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    reporter->CompressClusterGraph();
+
+
+    std::cout << std::endl << std::endl << "Compressed Cluster Graph" << std::endl;
+    printClusterGraph(cluster_graph->GetRoot());
+
+    std::cout << "Report: " <<std::endl;
+    std::vector<Cluster *> * report = reporter->GenerateReport();
+    for (int i=0; i < report->size(); i++) {
+        std::cout << "Cluster: " << std::endl;
+        std::cout << "Count: " << (*report)[i]->GetCount() << std::endl;
+        std::cout << "Range: ";
+        for (int j=0; j < (*report)[i]->GetRanges().size(); j++)
+                        std::cout << (*report)[i]->GetRanges()[j] << " ";
+        std::cout << std::endl;
+    }
+
+    for (int i=0; i < report->size(); i++) {
+        bool foundMatch = false;
+        for(int j=0; j < expectedResults.size(); j++) {
+            EXPECT_EQ((*report)[i]->GetRanges().size(), expectedResults[j].size());
+            bool flag = true;
+            for(int k = 0; k < expectedResults[j].size(); k++) {
+                if ((*report)[i]->GetRanges()[k] != expectedResults[j][k]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                expectedResults.erase(expectedResults.begin() + j);
+                foundMatch = true;
+                break;
+            }
+            EXPECT_EQ(true, foundMatch);
+        }
+    }
+
+    delete reporter;
+    delete cluster_graph;
+}
+
+TEST_F(ReporterTest, NoLeavesPrunedTest) {
+    std::vector<std::vector<unsigned int>> expectedResults {
+				{ 0,0,0,0 },
+                { 0,0,1,1 },
+				{ 1,1,0,0 },
+                { 1,1,1,1 },
+				{ 2,2,0,0 },
+                { 2,2,1,1 },
+                { 3,3,0,0 },
+                { 3,3,1,1 }
+			};
+    Parse("test7.conf", &c);
+    ClusterGraph * cluster_graph = new ClusterGraph(&c);
+    cluster_graph->PopulateChildren();
+
+    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 3;
+    DataParser dp(c, batchSize);
+
+    dp.LoadHeaders();
+    
+    while (readCount = dp.LoadNextDataBatch(cluster_graph))
+    {
+    }
+    std::cout << "Original Cluster Graph" << std::endl; 
+    printClusterGraph(cluster_graph->GetRoot());
+
+    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    reporter->CompressClusterGraph();
+
+
+    std::cout << std::endl << std::endl << "Compressed Cluster Graph" << std::endl;
+    printClusterGraph(cluster_graph->GetRoot());
+
+    std::cout << "Report: " <<std::endl;
+    std::vector<Cluster *> * report = reporter->GenerateReport();
+    for (int i=0; i < report->size(); i++) {
+        std::cout << "Cluster: " << std::endl;
+        std::cout << "Count: " << (*report)[i]->GetCount() << std::endl;
+        std::cout << "Range: ";
+        for (int j=0; j < (*report)[i]->GetRanges().size(); j++)
+                        std::cout << (*report)[i]->GetRanges()[j] << " ";
+        std::cout << std::endl;
+    }
+
+    EXPECT_EQ(report->size(), expectedResults.size());
+    
+    for (int i=0; i < report->size(); i++) {
+        bool foundMatch = false;
+        for(int j=0; j < expectedResults.size(); j++) {
+            EXPECT_EQ((*report)[i]->GetRanges().size(), expectedResults[j].size());
+            bool flag = true;
+            for(int k = 0; k < expectedResults[j].size(); k++) {
+                if ((*report)[i]->GetRanges()[k] != expectedResults[j][k]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                expectedResults.erase(expectedResults.begin() + j);
+                foundMatch = true;
+                break;
+            }
+            EXPECT_EQ(true, foundMatch);
+        }
+    }
+
+    delete reporter;
+    delete cluster_graph;
+}
+
+TEST_F(ReporterTest, LevelSkippedTest) {
+    std::vector<std::vector<unsigned int>> expectedResults {
+				{ 0,0,1,1 },
+				{ 1,1,0,0 },
+				{ 0,1,0,1 },
+				{ 2,2,0,0 },
+                { 3,3,0,0 },
+                { 2,3,1,1 }
+			};
+    Parse("test8.conf", &c);
+    ClusterGraph * cluster_graph = new ClusterGraph(&c);
+    cluster_graph->PopulateChildren();
+
+    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 6;
+    DataParser dp(c, batchSize);
+
+    dp.LoadHeaders();
+    
+    while (readCount = dp.LoadNextDataBatch(cluster_graph))
+    {
+    }
+    std::cout << "Original Cluster Graph" << std::endl; 
+    printClusterGraph(cluster_graph->GetRoot());
+
+    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    reporter->CompressClusterGraph();
+
+
+    std::cout << std::endl << std::endl << "Compressed Cluster Graph" << std::endl;
+    printClusterGraph(cluster_graph->GetRoot());
+
+    std::cout << "Report: " <<std::endl;
+    std::vector<Cluster *> * report = reporter->GenerateReport();
+    for (int i=0; i < report->size(); i++) {
+        std::cout << "Cluster: " << std::endl;
+        std::cout << "Count: " << (*report)[i]->GetCount() << std::endl;
+        std::cout << "Range: ";
+        for (int j=0; j < (*report)[i]->GetRanges().size(); j++)
+                        std::cout << (*report)[i]->GetRanges()[j] << " ";
+        std::cout << std::endl;
+    }
+
+    EXPECT_EQ(report->size(), expectedResults.size());
+    
+    for (int i=0; i < report->size(); i++) {
+        bool foundMatch = false;
+        for(int j=0; j < expectedResults.size(); j++) {
+            EXPECT_EQ((*report)[i]->GetRanges().size(), expectedResults[j].size());
+            bool flag = true;
+            for(int k = 0; k < expectedResults[j].size(); k++) {
+                if ((*report)[i]->GetRanges()[k] != expectedResults[j][k]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                expectedResults.erase(expectedResults.begin() + j);
+                foundMatch = true;
+                break;
+            }
+            EXPECT_EQ(true, foundMatch);
+        }
+    }
+    delete reporter;
+    delete cluster_graph;
 }
 
 

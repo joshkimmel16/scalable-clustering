@@ -16,7 +16,11 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
     if (cluster == nullptr) {
         return true;
     }
-    else if (cluster->GetCount() > threshold) {
+
+    else if (cluster->GetCount() >= threshold) {
+        //clear flags for GenerateReport
+        cluster->SetFlags(0);
+
         for(int i=0; i < cluster->GetDimension(); i++) {
             Cluster* leftChild = cluster->GetChild(i, LEFT);
             Cluster* rightChild = cluster->GetChild(i, RIGHT);
@@ -41,16 +45,19 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
     }
 }
 
-void Reporter::GenerateReport() {
+std::vector<Cluster *> * Reporter::GenerateReport() {
     if(graph != nullptr) {
-        CompressClusterGraph(graph->GetRoot());
+        GenerateReport(graph->GetRoot());
     }
+    return &reportedClusters;
 } 
 
 void Reporter::GenerateReport(Cluster * cluster) {
-    if (cluster == nullptr) {
+    if (cluster == nullptr || cluster->GetFlag(0) == 1) {
         return;
     }
+
+    cluster->SetFlags(1);
 
     bool isLeaf = true;
     for(int i=0; i < cluster->GetDimension(); i++) {
@@ -72,7 +79,7 @@ void Reporter::GenerateReport(Cluster * cluster) {
 
             if(leftChild != nullptr) {
                 GenerateReport(leftChild);
-                sum[i]+= leftChild->GetCount();
+                sum[i] += leftChild->GetCount();
             }
             if(rightChild != nullptr) {
                 GenerateReport(rightChild);

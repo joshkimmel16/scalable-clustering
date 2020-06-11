@@ -15,14 +15,14 @@ public:
         threshold = thresh;
     }
     std::vector<Cluster *> * CompressAndGenerateReport();
+    void CompressClusterGraph();
+    std::vector<Cluster *> * GenerateReport();
 
 private:
     ClusterGraph * graph;
     double threshold;
     std::vector<Cluster *> reportedClusters;
-    void CompressClusterGraph();
     bool CompressClusterGraph(Cluster * cluster);
-    void GenerateReport();
     void GenerateReport(Cluster* cluster);
 
 };
