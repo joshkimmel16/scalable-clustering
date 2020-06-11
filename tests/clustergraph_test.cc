@@ -158,6 +158,15 @@ TEST_F(ClusterGraphTest, ClusterGraph) {
     EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(3, RIGHT)->GetChild(2, LEFT)->GetCount(), 0);
     EXPECT_EQ(root->GetChild(0, LEFT)->GetChild(1, LEFT)->GetChild(3, RIGHT)->GetChild(2, RIGHT)->GetCount(), 1);
 
+    // test GetName and GetFullName
+    EXPECT_EQ(root->GetFullName(), "(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(0, LEFT)->GetFullName(), "(-INF,g],(-INF,INF),(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(0, RIGHT)->GetFullName(), "(g,INF),(-INF,INF),(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(1, LEFT)->GetFullName(), "(-INF,INF),(-INF,6],(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(1, RIGHT)->GetFullName(), "(-INF,INF),(6,INF),(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(1, LEFT)->GetChild(1, LEFT)->GetFullName(), "(-INF,INF),(-INF,3],(-INF,INF),(-INF,INF)");
+    EXPECT_EQ(root->GetChild(1, LEFT)->GetChild(1, RIGHT)->GetFullName(), "(-INF,INF),(3,6],(-INF,INF),(-INF,INF)");
+
     // test pruning
     Cluster *ptr = root->GetChild(1, LEFT)->GetChild(2, LEFT);
     delete ptr;
