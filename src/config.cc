@@ -207,6 +207,10 @@ std::vector<std::string> ReadLine (std::istream* input) {
             tmp += c;
         }
     }
+    //special case where last line of config is EOF
+    if (output.size() == 1 && tmp != "") {
+        output.push_back(tmp);
+    }
     return output;
 }
 

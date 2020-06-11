@@ -8,13 +8,14 @@ int main(int argc, char* argv[])
     try {
         //need command line argument pointing to config file
         //assumed to be the first (and only) argument
-        if (argc < 1) {
-            throw "Missing required command line argument for config file!";
+        if (argc < 2) {
+            std::cerr << "Missing required command line argument for config file!\n";
+            return 1;
         }
 
         //read config file
         Config conf;
-        Parse(argv[0], &conf);
+        Parse(argv[1], &conf);
 
         //generate cluster graph based on config
         ClusterGraph * cluster_graph = new ClusterGraph(&conf);
