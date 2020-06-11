@@ -38,7 +38,7 @@ add_library(reporter src/reporter.cc)
 
 #add_executable
 add_executable(main src/main.cc)
-target_link_libraries(main compare datapoint config clustergraph dataparser)
+target_link_libraries(main reporter dataparser config compare datapoint clustergraph)
 
 #add test executables
 add_executable(datapoint_test tests/datapoint_test.cc)

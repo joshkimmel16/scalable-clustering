@@ -21,7 +21,8 @@ enum ParserState {
     REPORT_PATH,
     THRESHOLD,
     NULL_ACTION,
-    DEFAULT_VALS
+    DEFAULT_VALS,
+    BATCH_SIZE
 };
 ParserState StateFromString (std::string state); //get state from string
 
@@ -45,6 +46,7 @@ public:
     void SetThreshold (std::string t); //setter for threshold
     void SetNullAction (std::string na); //setter for null_action
     bool AddDefaultVal (std::string dv); //setter for default_vals
+    void SetBatchSize (std::string bs); //setter for batch size
     unsigned int GetDataStart (); //return data_start
     std::vector<unsigned int> GetDataIndices(); //return data_indices
     unsigned int GetNumAttrs(); //return num_attrs
@@ -55,6 +57,7 @@ public:
     double GetThreshold(); //retrieve threshold
     NullAction GetNullAction(); //retrieve null_action
     std::string GetDefaultVal(unsigned int index); //retrieve default_val at given index
+    unsigned int GetBatchSize(); //retrieve batch size
 private:
     unsigned int data_start;
     std::vector<unsigned int> data_indices;
@@ -66,6 +69,7 @@ private:
     double threshold;
     NullAction null_action;
     std::vector<std::string> default_vals;
+    unsigned int batch_size;
 };
 
 std::vector<std::string> ReadLine (std::istream* input); //read a line from the config file

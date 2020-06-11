@@ -1,53 +1,45 @@
-/*#include "dataparser.h"
+#include "clustergraph.h"
+#include "config.h"
 #include "reporter.h"
-
-void printClusterGraph(Cluster * cluster) {
-        if (cluster == nullptr) {
-            return;
-        }
-        std::cout << "Cluster range: ";
-        for(int i = 0; i < cluster->GetRanges().size(); i++) {
-            std::cerr << cluster->GetRanges()[i] << std::endl;
-        } 
-        std::cerr << std::endl;
-        std::cerr << "Cluster count: " << cluster->GetCount() << std::endl;
-        for (int i = 0; i < cluster->GetRanges().size(); i++) {
-            std::cerr << "Left Child Dim " << i << ": "<< std::endl;
-            printClusterGraph(cluster->GetChild(i, LEFT));
-            std::cerr << "Right Child Dim " << i << ": "<< std::endl;
-            printClusterGraph(cluster->GetChild(i, RIGHT));
-        }
-        
-}
-*/
+#include "dataparser.h"
 
 int main(int argc, char* argv[]) 
 {
-  return 0;
-  /*
-  std::vector<std::vector<std::string>> testData = {
-        {"col1", "col2"},
-        {   "-1",    "-1"},
-        {   "-1",    "1"},
-        {   "5",    "-1"},
-        {   "5",    "1"},
-        {   "15",    "-1"},
-        {   "15",    "1"},
-        {   "20",    "-1"},
-        {   "20",    "1"}};
+    try {
+        //need command line argument pointing to config file
+        //assumed to be the first (and only) argument
+        if (argc < 1) {
+            throw "Missing required command line argument for config file!";
+        }
 
-    ClusterGraph *cluster_graph;
-    Config c;
+        //read config file
+        Config conf;
+        Parse(argv[0], &conf);
+
+        //generate cluster graph based on config
+        ClusterGraph * cluster_graph = new ClusterGraph(&conf);
+        cluster_graph->PopulateChildren();
+
+        //initialize data parser
+        unsigned int readCount, batchSize = conf.GetBatchSize();
+        DataParser dp(conf, batchSize);
+        dp.LoadHeaders();
     
-    Parse("test5.conf", &c);
-    cluster_graph = new ClusterGraph(&c);
-    unsigned int readCount, trueOffset = 1, batchSize = 10;
-    DataParser dp(c, batchSize);
+        //read data into cluster graph in fixed batches
+        while (readCount = dp.LoadNextDataBatch(cluster_graph)) {}
 
-    dp.LoadHeaders();
-    while (readCount = dp.LoadNextDataBatch(cluster_graph))
-    {
+        //compress cluster graph and generate report
+        Reporter * reporter = new Reporter(&conf, cluster_graph);
+        reporter->CompressAndGenerateReport();
+
+        //memory cleanup
+        delete reporter;
+        delete cluster_graph;
     }
-    printClusterGraph(cluster_graph->GetRoot());
-    */
+    catch (std::exception& e) {
+        std::cerr << "Error occurred! " << e.what();
+        return 1;
+    }
+
+    return 0;
 }

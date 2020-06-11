@@ -3,8 +3,7 @@
 Config::Config () {
     data_start = 0;
     num_attrs = 0;
-    data_path = "data.csv";
-    report_path = "report.txt";
+    batch_size = 1000;
 }
 
 Config::~Config () {}
@@ -89,6 +88,10 @@ bool Config::AddDefaultVal (std::string dv) {
     }
 }
 
+void Config::SetBatchSize (std::string bs) {
+    batch_size = std::stoi(bs);
+}
+
 unsigned int Config::GetDataStart () {
     return data_start;
 }
@@ -129,6 +132,10 @@ std::string Config::GetDefaultVal (unsigned int index) {
     return default_vals[index];
 }
 
+unsigned int Config::GetBatchSize () {
+    return batch_size;
+}
+
 ParserState StateFromString (std::string state) {
     if (state == "DATA_START") {
         return DATA_START;
@@ -159,6 +166,9 @@ ParserState StateFromString (std::string state) {
     }
     else if (state == "DEFAULT_VALS") {
         return DEFAULT_VALS;
+    }
+    else if (state == "BATCH_SIZE") {
+        return BATCH_SIZE;
     }
     else {
         return DATA_START;
@@ -306,6 +316,11 @@ void SetConfigVal (std::vector<std::string> line, Config* config) {
             if (tmp4 != "") {
                 config->AddDefaultVal(tmp4);
             }
+            break;
+        }
+        case BATCH_SIZE:
+        {
+            config->SetBatchSize(line[1]);
             break;
         }
         default:
