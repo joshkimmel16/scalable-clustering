@@ -74,7 +74,7 @@ TEST_F(ReporterTest, SimpleGraphTest) {
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
 
-    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 1;
+    unsigned int readCount, trueOffset = 1, batchSize = 10;
     DataParser dp(c, batchSize);
 
     dp.LoadHeaders();
@@ -85,7 +85,7 @@ TEST_F(ReporterTest, SimpleGraphTest) {
     std::cout << "Original Cluster Graph" << std::endl; 
     printClusterGraph(cluster_graph->GetRoot());
 
-    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    Reporter * reporter = new Reporter(&c, cluster_graph);
     reporter->CompressClusterGraph();
 
 
@@ -139,7 +139,7 @@ TEST_F(ReporterTest, OneDimensionTest) {
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
 
-    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 10;
+    unsigned int readCount, trueOffset = 1, batchSize = 10;
     DataParser dp(c, batchSize);
 
     dp.LoadHeaders();
@@ -150,7 +150,7 @@ TEST_F(ReporterTest, OneDimensionTest) {
     std::cout << "Original Cluster Graph" << std::endl; 
     printClusterGraph(cluster_graph->GetRoot());
 
-    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    Reporter * reporter = new Reporter(&c, cluster_graph);
     reporter->CompressClusterGraph();
 
 
@@ -207,7 +207,7 @@ TEST_F(ReporterTest, NoLeavesPrunedTest) {
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
 
-    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 3;
+    unsigned int readCount, trueOffset = 1, batchSize = 10;
     DataParser dp(c, batchSize);
 
     dp.LoadHeaders();
@@ -218,7 +218,7 @@ TEST_F(ReporterTest, NoLeavesPrunedTest) {
     std::cout << "Original Cluster Graph" << std::endl; 
     printClusterGraph(cluster_graph->GetRoot());
 
-    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    Reporter * reporter = new Reporter(&c, cluster_graph);
     reporter->CompressClusterGraph();
 
 
@@ -275,7 +275,7 @@ TEST_F(ReporterTest, LevelSkippedTest) {
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
 
-    unsigned int readCount, trueOffset = 1, batchSize = 10, threshold = 6;
+    unsigned int readCount, trueOffset = 1, batchSize = 10;
     DataParser dp(c, batchSize);
 
     dp.LoadHeaders();
@@ -286,7 +286,7 @@ TEST_F(ReporterTest, LevelSkippedTest) {
     std::cout << "Original Cluster Graph" << std::endl; 
     printClusterGraph(cluster_graph->GetRoot());
 
-    Reporter * reporter = new Reporter(cluster_graph, threshold);
+    Reporter * reporter = new Reporter(&c, cluster_graph);
     reporter->CompressClusterGraph();
 
 
@@ -325,6 +325,32 @@ TEST_F(ReporterTest, LevelSkippedTest) {
             EXPECT_EQ(true, foundMatch);
         }
     }
+    delete reporter;
+    delete cluster_graph;
+}
+
+TEST_F(ReporterTest, WriteTest) {
+    std::vector<std::vector<unsigned int>> expectedResults {
+				{ 0,0,0,0 },
+                { 0,0,1,1 }
+			};
+    Parse("test5.conf", &c);
+    ClusterGraph * cluster_graph = new ClusterGraph(&c);
+    cluster_graph->PopulateChildren();
+
+    unsigned int readCount, trueOffset = 1, batchSize = 10;
+    DataParser dp(c, batchSize);
+
+    dp.LoadHeaders();
+    
+    while (readCount = dp.LoadNextDataBatch(cluster_graph))
+    {
+    }
+    std::cout << "Original Cluster Graph" << std::endl; 
+    printClusterGraph(cluster_graph->GetRoot());
+
+    Reporter * reporter = new Reporter(&c, cluster_graph);
+    reporter->CompressAndGenerateReport();
     delete reporter;
     delete cluster_graph;
 }

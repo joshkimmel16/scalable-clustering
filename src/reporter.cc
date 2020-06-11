@@ -1,9 +1,9 @@
 #include "reporter.h"
 
-std::vector<Cluster *> * Reporter::CompressAndGenerateReport() {
+void Reporter::CompressAndGenerateReport() {
     CompressClusterGraph();
     GenerateReport();
-    return &reportedClusters;
+    WriteReport();
 }
 
 void Reporter::CompressClusterGraph() {
@@ -95,4 +95,21 @@ void Reporter::GenerateReport(Cluster * cluster) {
             cluster->SetCount(maxSum);
         }
     }
+}
+
+void Reporter::WriteReport() {
+    std::ofstream reportFile;
+    reportFile.open (config->GetReportPath());
+    reportFile << "Report Containing Compressed Cluster List " <<std::endl;
+    reportFile << "----------------------------------------- " <<std::endl;
+    for (int i=0; i < reportedClusters.size(); i++) {
+        reportFile << "Cluster: " << std::endl;
+        reportFile << "Count: " << reportedClusters[i]->GetCount() << std::endl;
+        reportFile << "Range: ";
+        for (int j=0; j < reportedClusters[i]->GetRanges().size(); j++)
+                        reportFile << reportedClusters[i]->GetRanges()[j] << " ";
+        reportFile << std::endl;
+        reportFile << "----------------------------------------- " <<std::endl;
+    }
+    reportFile.close();
 }
