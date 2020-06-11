@@ -12,6 +12,8 @@ void Reporter::CompressClusterGraph() {
     }
 }
 
+//perform DFS on cluster graph
+//prune leaves less than threshold
 bool Reporter::CompressClusterGraph(Cluster * cluster) {
     if (cluster == nullptr) {
         return true;
@@ -27,12 +29,14 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
 
             if(leftChild != nullptr) {
                 if (!CompressClusterGraph(leftChild)) {
+                    //prune tree for any node less than threshold
                     delete leftChild;
                     cluster->GetChildren(i).SetLeft(nullptr);
                 }
             }
             if (rightChild != nullptr) {
                 if (!CompressClusterGraph(rightChild)) {
+                    //prune tree for any node less than threshold
                     delete rightChild;
                     cluster->GetChildren(i).SetRight(nullptr);
                 }
@@ -53,10 +57,12 @@ std::vector<Cluster *> * Reporter::GenerateReport() {
 } 
 
 void Reporter::GenerateReport(Cluster * cluster) {
+    //return if nullptr or already visited
     if (cluster == nullptr || cluster->GetFlag(0) == 1) {
         return;
     }
 
+    //set flag so nodes aren't visited twice
     cluster->SetFlags(1);
 
     bool isLeaf = true;
@@ -68,6 +74,7 @@ void Reporter::GenerateReport(Cluster * cluster) {
                isLeaf = false;
             }
     }
+    //all leaves are added to report
     if (isLeaf) {
         reportedClusters.push_back(cluster);
     }
@@ -78,10 +85,12 @@ void Reporter::GenerateReport(Cluster * cluster) {
             Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr) {
+                //DFS
                 GenerateReport(leftChild);
                 sum[i] += leftChild->GetCount();
             }
             if(rightChild != nullptr) {
+                //DFS
                 GenerateReport(rightChild);
                 sum[i] += rightChild->GetCount();
             }
