@@ -76,7 +76,7 @@ void Cluster::PopulateChildren(const unsigned int &d) {
             left_anchor->SetStringValue(d,
                                         config->GetCutoffs(d)[(left_ranges[start_index] + left_ranges[end_index]) / 2]);
         } else {
-            left_anchor->SetStringValue(d, ""); // the left child is an leaf node and has no anchor value
+            left_anchor->SetStringValue(d, std::string()); // the left child is an leaf node and has no anchor value
         }
         auto *left = new Cluster(dimension, left_ranges, graph, config, left_anchor);
         left->SetParent(d, this);
@@ -99,7 +99,7 @@ void Cluster::PopulateChildren(const unsigned int &d) {
                                          config->GetCutoffs(d)[(right_ranges[start_index] + right_ranges[end_index]) /
                                                                2]);
         } else {
-            right_anchor->SetStringValue(d, ""); // the right child is an leaf node and has no anchor value
+            right_anchor->SetStringValue(d, std::string()); // the right child is an leaf node and has no anchor value
         }
         auto *right = new Cluster(dimension, right_ranges, graph, config, right_anchor);
         right->SetParent(d, this);
@@ -208,6 +208,28 @@ unsigned int Cluster::GetCount() const {
 
 const int &Cluster::GetFlag(const unsigned int &d) const {
     return flags[d];
+}
+
+std::string Cluster::GetName(const unsigned int &d) const {
+    if (d < 0 || d >= dimension) {
+        return std::string();
+    }
+    const unsigned int start_index = d * 2; // if there are 2 dimensions, the ranges look like: [0, 2, 0, 5]
+    const unsigned int end_index = start_index + 1;
+    const unsigned int start = ranges[start_index];
+    const unsigned int end = ranges[end_index];
+    std::vector<std::string> cutoff = config->GetCutoffs(d);
+    std::string left = start == 0 ? "-INF" : cutoff[start - 1];
+    std::string right = end == cutoff.size() ? "INF" : cutoff[end];
+    return "(" + left + "," + right + (end == cutoff.size() ? ")" : "]");
+}
+
+std::string Cluster::GetFullName() const {
+    std::string full_name = GetName(0);
+    for (int d = 1; d < dimension; d++) {
+        full_name.append("," + GetName(d));
+    }
+    return full_name;
 }
 
 void Branch::SetLeft(Cluster *p) {

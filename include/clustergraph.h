@@ -50,6 +50,8 @@ public:
     const std::vector<unsigned int> &GetRanges() const; // getter for ranges
     unsigned int GetCount() const; // getter for count
     const int &GetFlag(const unsigned int &d) const; // getter for flags[d]
+    std::string GetName(const unsigned int &d) const; //getter for range[d]
+    std::string GetFullName() const; //getter for range[d]
 private:
     Config *config; // pointer to the config
     ClusterGraph *graph; // pointer to the graph
