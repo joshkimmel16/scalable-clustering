@@ -34,6 +34,7 @@ TEST_F(ConfigTest, StateFromString) {
   std::string s8 = "THRESHOLD";
   std::string s9 = "NULL_ACTION";
   std::string s10 = "DEFAULT_VALS";
+  std::string s11 = "BATCH_SIZE";
   
   EXPECT_EQ(StateFromString(s1), DATA_START);
   EXPECT_EQ(StateFromString(s2), DATA_INDICES);
@@ -45,6 +46,7 @@ TEST_F(ConfigTest, StateFromString) {
   EXPECT_EQ(StateFromString(s8), THRESHOLD);
   EXPECT_EQ(StateFromString(s9), NULL_ACTION);
   EXPECT_EQ(StateFromString(s10), DEFAULT_VALS);
+  EXPECT_EQ(StateFromString(s11), BATCH_SIZE);
 }
 
 //ActionFromString test
@@ -78,6 +80,7 @@ TEST_F(ConfigTest, Config) {
     c.SetReportPath("path_to_report.txt");
 
     c.SetThreshold("0.67");
+    c.SetBatchSize("5000");
 
     c.SetNullAction("ACTION_OMIT");
     c.AddDefaultVal("blah");
@@ -90,6 +93,7 @@ TEST_F(ConfigTest, Config) {
     EXPECT_EQ(c.GetThreshold(), 0.67);
     EXPECT_EQ(c.GetNullAction(), ACTION_OMIT);
     EXPECT_EQ(c.GetDefaultVal(0), "blah");
+    EXPECT_EQ(c.GetBatchSize(), 5000);
     
     std::vector<unsigned int> c1 = c.GetDataIndices();
     EXPECT_EQ(c1[0], 0);
@@ -163,6 +167,12 @@ TEST_F(ConfigTest, ReadLine) {
     std::vector<std::string> o10 = ReadLine(i10);
     EXPECT_EQ(o10[0], "DEFAULT_VALS");
     EXPECT_EQ(o10[1], "blah,0,1.5");
+
+    std::string t11 = "BATCH_SIZE=300\n";
+    std::istringstream* i11 = new std::istringstream(t11);
+    std::vector<std::string> o11 = ReadLine(i11);
+    EXPECT_EQ(o11[0], "BATCH_SIZE");
+    EXPECT_EQ(o11[1], "300");
 }
 
 //SetConfigVal tests
@@ -220,6 +230,10 @@ TEST_F(ConfigTest, SetConfigVal) {
     EXPECT_EQ(c->GetDefaultVal(0), "blah");
     EXPECT_EQ(c->GetDefaultVal(1), "0");
     EXPECT_EQ(c->GetDefaultVal(2), "1.5");
+
+    std::vector<std::string> t11 { "BATCH_SIZE", "10000" };
+    SetConfigVal(t11, c);
+    EXPECT_EQ(c->GetBatchSize(), 10000);
 }
 
 //ReadLine function
@@ -240,6 +254,7 @@ TEST_F(ConfigTest, Parse) {
     EXPECT_EQ(c->GetReportPath(), "path_to_report.txt");
 
     EXPECT_EQ(c->GetThreshold(), 1.67);
+    EXPECT_EQ(c->GetBatchSize(), 4000);
 
     EXPECT_EQ(c->GetNullAction(), ACTION_DEFAULT);
     EXPECT_EQ(c->GetDefaultVal(0), "blah");

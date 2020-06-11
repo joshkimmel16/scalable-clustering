@@ -58,6 +58,7 @@ DATA_TYPES=DATA_DATE,DATA_INT,DATA_INT
 CUTOFF_VALS=[],[],[]
 DATA_PATH=Global_Mobility_Report.csv
 THRESHOLD=80
+BATCH_SIZE=5000
 NULL_ACTION=ACTION_OMIT
 REPORT_PATH=covid_report.txt
 
@@ -72,6 +73,7 @@ REPORT_PATH=covid_report.txt
 * _CUTOFF_VALS_ => The cutoff values for each column that define the clusters for the algorithm. Each array is interpreted as a binary tree in array form. (Comma-Separated list of Arrays of Strings)
 * _DATA_PATH_ => Path to the input data set file (String)
 * _THRESHOLD_ => Threshold value to use to identify "interesting" clusters (Double)
+* _BATCH_SIZE_ => Number of rows to read into the cluster graph at any given time. Default=1000 (Int, Optional)
 * _NULL_ACTION_ => Defines how to handle missing/null values for rows in the data set. See below for a list of supported actions (String)
 * _DEFAULT_VALS_ => The values to use as defaults for each dimension when a null/missing value is encountered. Only honored if NULL_ACTION is ACTION_DEFAULT (Comma-Separated List of Strings)
 * _REPORT_PATH_ => Path to the output report file (String)
