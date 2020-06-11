@@ -2,10 +2,9 @@ Report Containing Compressed Cluster List
 ----------------------------------------- 
 Cluster: 
 Count: 1
-Range: 0 0 0 0 
+Range in Each Dimension: (-INF,0],(-INF,0]
 ----------------------------------------- 
-akdfjlakdfalCluster: 
+Cluster: 
 Count: 1
-Range: 0 0 1 1 
+Range in Each Dimension: (-INF,0],(0,INF)
 ----------------------------------------- 
-akdfjlakdfal

@@ -105,9 +105,8 @@ void Reporter::WriteReport() {
     for (int i=0; i < reportedClusters.size(); i++) {
         reportFile << "Cluster: " << std::endl;
         reportFile << "Count: " << reportedClusters[i]->GetCount() << std::endl;
-        reportFile << "Range: ";
-        for (int j=0; j < reportedClusters[i]->GetRanges().size(); j++)
-                        reportFile << reportedClusters[i]->GetRanges()[j] << " ";
+        reportFile << "Range in Each Dimension: ";
+        reportFile << reportedClusters[i]->GetFullName();
         reportFile << std::endl;
         reportFile << "----------------------------------------- " <<std::endl;
     }
