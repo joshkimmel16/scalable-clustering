@@ -330,10 +330,6 @@ TEST_F(ReporterTest, LevelSkippedTest) {
 }
 
 TEST_F(ReporterTest, WriteTest) {
-    std::vector<std::vector<unsigned int>> expectedResults {
-				{ 0,0,0,0 },
-                { 0,0,1,1 }
-			};
     Parse("test5.conf", &c);
     ClusterGraph * cluster_graph = new ClusterGraph(&c);
     cluster_graph->PopulateChildren();
@@ -346,8 +342,6 @@ TEST_F(ReporterTest, WriteTest) {
     while (readCount = dp.LoadNextDataBatch(cluster_graph))
     {
     }
-    std::cout << "Original Cluster Graph" << std::endl; 
-    printClusterGraph(cluster_graph->GetRoot());
 
     Reporter * reporter = new Reporter(&c, cluster_graph);
     reporter->CompressAndGenerateReport();
