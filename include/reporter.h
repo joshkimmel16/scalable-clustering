@@ -10,20 +10,30 @@
 
 class Reporter {
 public:
-    Reporter(ClusterGraph * g, double thresh) {
+    Reporter(Config *c, ClusterGraph * g) {
+        config = c;
         graph = g;
-        threshold = thresh;
+        threshold = c->GetThreshold();
     }
-    std::vector<Cluster *> * CompressAndGenerateReport();
+
+    //used to compress,generate, and write report
+    void CompressAndGenerateReport();
+
+    //only compresses cluster graph
+    void CompressClusterGraph();
+
+    //sets reportedClusters and returns vector of clusters to be in report
+    //must be called after CompressClusterGraph()
+    std::vector<Cluster *> * GenerateReport();
 
 private:
+    Config * config;
     ClusterGraph * graph;
     double threshold;
     std::vector<Cluster *> reportedClusters;
-    void CompressClusterGraph();
     bool CompressClusterGraph(Cluster * cluster);
-    void GenerateReport();
     void GenerateReport(Cluster* cluster);
+    void WriteReport();
 
 };
 

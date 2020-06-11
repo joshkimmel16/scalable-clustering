@@ -1,0 +1,10 @@
+Report Containing Compressed Cluster List 
+----------------------------------------- 
+Cluster: 
+Count: 1
+Range in Each Dimension: (-INF,0],(-INF,0]
+----------------------------------------- 
+Cluster: 
+Count: 1
+Range in Each Dimension: (-INF,0],(0,INF)
+----------------------------------------- 

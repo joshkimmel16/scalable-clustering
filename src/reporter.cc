@@ -1,9 +1,9 @@
 #include "reporter.h"
 
-std::vector<Cluster *> * Reporter::CompressAndGenerateReport() {
+void Reporter::CompressAndGenerateReport() {
     CompressClusterGraph();
     GenerateReport();
-    return &reportedClusters;
+    WriteReport();
 }
 
 void Reporter::CompressClusterGraph() {
@@ -12,23 +12,31 @@ void Reporter::CompressClusterGraph() {
     }
 }
 
+//perform DFS on cluster graph
+//prune leaves less than threshold
 bool Reporter::CompressClusterGraph(Cluster * cluster) {
     if (cluster == nullptr) {
         return true;
     }
-    else if (cluster->GetCount() > threshold) {
-        for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+
+    else if (cluster->GetCount() >= threshold) {
+        //clear flags for GenerateReport
+        cluster->SetFlags(0);
+
+        for(int i=0; i < cluster->GetDimension(); i++) {
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr) {
                 if (!CompressClusterGraph(leftChild)) {
-                    delete cluster->GetChildren(i).GetLeft();
+                    //prune tree for any node less than threshold
+                    delete leftChild;
                     cluster->GetChildren(i).SetLeft(nullptr);
                 }
             }
             if (rightChild != nullptr) {
                 if (!CompressClusterGraph(rightChild)) {
+                    //prune tree for any node less than threshold
                     delete rightChild;
                     cluster->GetChildren(i).SetRight(nullptr);
                 }
@@ -41,40 +49,48 @@ bool Reporter::CompressClusterGraph(Cluster * cluster) {
     }
 }
 
-void Reporter::GenerateReport() {
+std::vector<Cluster *> * Reporter::GenerateReport() {
     if(graph != nullptr) {
-        CompressClusterGraph(graph->GetRoot());
+        GenerateReport(graph->GetRoot());
     }
+    return &reportedClusters;
 } 
 
 void Reporter::GenerateReport(Cluster * cluster) {
-    if (cluster == nullptr) {
+    //return if nullptr or already visited
+    if (cluster == nullptr || cluster->GetFlag(0) == 1) {
         return;
     }
 
+    //set flag so nodes aren't visited twice
+    cluster->SetFlags(1);
+
     bool isLeaf = true;
-    for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+    for(int i=0; i < cluster->GetDimension(); i++) {
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr || rightChild != nullptr) {
                isLeaf = false;
             }
     }
+    //all leaves are added to report
     if (isLeaf) {
         reportedClusters.push_back(cluster);
     }
     else {
-        std::vector<unsigned int> sum(cluster->GetChildren().size(), 0);
-        for(int i=0; i < cluster->GetChildren().size(); i++) {
-            Cluster* leftChild = cluster->GetChildren(i).GetLeft();
-            Cluster* rightChild = cluster->GetChildren(i).GetRight();
+        std::vector<unsigned int> sum(cluster->GetDimension(), 0);
+        for(int i=0; i < cluster->GetDimension(); i++) {
+            Cluster* leftChild = cluster->GetChild(i, LEFT);
+            Cluster* rightChild = cluster->GetChild(i, RIGHT);
 
             if(leftChild != nullptr) {
+                //DFS
                 GenerateReport(leftChild);
-                sum[i]+= leftChild->GetCount();
+                sum[i] += leftChild->GetCount();
             }
             if(rightChild != nullptr) {
+                //DFS
                 GenerateReport(rightChild);
                 sum[i] += rightChild->GetCount();
             }
@@ -88,4 +104,20 @@ void Reporter::GenerateReport(Cluster * cluster) {
             cluster->SetCount(maxSum);
         }
     }
+}
+
+void Reporter::WriteReport() {
+    std::ofstream reportFile;
+    reportFile.open (config->GetReportPath());
+    reportFile << "Report Containing Compressed Cluster List " <<std::endl;
+    reportFile << "----------------------------------------- " <<std::endl;
+    for (int i=0; i < reportedClusters.size(); i++) {
+        reportFile << "Cluster: " << std::endl;
+        reportFile << "Count: " << reportedClusters[i]->GetCount() << std::endl;
+        reportFile << "Range in Each Dimension: ";
+        reportFile << reportedClusters[i]->GetFullName();
+        reportFile << std::endl;
+        reportFile << "----------------------------------------- " <<std::endl;
+    }
+    reportFile.close();
 }
