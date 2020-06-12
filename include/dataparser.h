@@ -6,6 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include <sstream>
+#include <algorithm>
 #include "datapoint.h"
 #include "config.h"
 #include "clustergraph.h"

@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
         unsigned int readCount, batchSize = conf.GetBatchSize();
         DataParser dp(conf, batchSize);
         dp.LoadHeaders();
-    
+        
         //read data into cluster graph in fixed batches
         while (readCount = dp.LoadNextDataBatch(cluster_graph)) {}
 

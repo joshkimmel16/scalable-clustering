@@ -34,7 +34,7 @@ void DataParser::LoadHeaders() {
 
         // Extract each (unignored) column name
         while (std::getline(ss, colname, ',')) {
-            if (colIdx == validColumns[colIdx]) {
+            if (std::find(validColumns.begin(), validColumns.end(), colIdx) != validColumns.end()) {
                 // Remove CR if present
                 if (colname.back() == '\r')
                     colname = colname.substr(0, colname.length()-1);
@@ -66,7 +66,7 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
         
     std::vector<std::string> csvRow(numAttributes);
     rawData = std::vector<std::vector<std::string>>(bSize, std::vector<std::string> (numAttributes));
-    unsigned int colIdx, batchCount = 0;
+    unsigned int colIdx, attrIdx, batchCount = 0;
     auto validColumns = dConf.GetDataIndices();
 
     // Read data, line by line
@@ -74,10 +74,11 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
     {
         std::stringstream ss(line);
         colIdx = 0;
+        attrIdx = 0;
         bool validLine = true;
         while(std::getline(ss, dataField, ',')) {
             // Is this a column of interest?
-            if (colIdx == validColumns[colIdx]) {
+            if (std::find(validColumns.begin(), validColumns.end(), colIdx) != validColumns.end()) {
                 // Remove CR if present
                 if (dataField.back() == '\r')
                     dataField = dataField.substr(0, dataField.length()-1);
@@ -88,9 +89,10 @@ unsigned int DataParser::LoadNextDataBatch(ClusterGraph* outputGraph) {
                         validLine = false;
                         break;
                     }
-                    dataField = dConf.GetDefaultVal(colIdx);
+                    dataField = dConf.GetDefaultVal(attrIdx);
                 }
-                csvRow[colIdx] = dataField;
+                csvRow[attrIdx] = dataField;
+                attrIdx++;
             }
                 
             colIdx++;
