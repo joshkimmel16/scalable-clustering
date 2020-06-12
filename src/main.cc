@@ -25,9 +25,11 @@ int main(int argc, char* argv[])
         unsigned int readCount, batchSize = conf.GetBatchSize();
         DataParser dp(conf, batchSize);
         dp.LoadHeaders();
-    
+        
         //read data into cluster graph in fixed batches
-        while (readCount = dp.LoadNextDataBatch(cluster_graph)) {}
+        while (readCount = dp.LoadNextDataBatch(cluster_graph)) {
+            std::cout << readCount << std::endl;
+        }
 
         //compress cluster graph and generate report
         Reporter * reporter = new Reporter(&conf, cluster_graph);
