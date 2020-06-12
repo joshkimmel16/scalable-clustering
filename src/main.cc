@@ -27,9 +27,7 @@ int main(int argc, char* argv[])
         dp.LoadHeaders();
         
         //read data into cluster graph in fixed batches
-        while (readCount = dp.LoadNextDataBatch(cluster_graph)) {
-            std::cout << readCount << std::endl;
-        }
+        while (readCount = dp.LoadNextDataBatch(cluster_graph)) {}
 
         //compress cluster graph and generate report
         Reporter * reporter = new Reporter(&conf, cluster_graph);
