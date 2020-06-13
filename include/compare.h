@@ -16,7 +16,8 @@ enum DataType {
 
 //define valid date formats
 enum DateFormat {
-    MONTH_DAY_YEAR
+    MONTH_DAY_YEAR,
+    YEAR_MONTH_DAY
 };
 
 struct Date {

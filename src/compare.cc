@@ -11,8 +11,8 @@ unsigned int Compare (DataPoint* anchor, DataPoint* input, unsigned int index, D
             return (input->GetDoubleValue(index) <= anchor->GetDoubleValue(index)) ? 1 : 2;
         case DATA_DATE:
         {
-            Date d1 = Date(input->GetStringValue(index), MONTH_DAY_YEAR);
-            Date d2 = Date(anchor->GetStringValue(index), MONTH_DAY_YEAR);
+            Date d1 = Date(input->GetStringValue(index), YEAR_MONTH_DAY);
+            Date d2 = Date(anchor->GetStringValue(index), YEAR_MONTH_DAY);
             return (d1.compare(d2)) ? 1 : 2;
         }
         default:
@@ -56,6 +56,20 @@ Date::Date(std::string d, DateFormat format) {
                 else { tmp += d[i]; }
             }
             year = std::stoi(tmp);
+            break;
+        }
+        case YEAR_MONTH_DAY:
+        {
+            unsigned int state = 0;
+            std::string tmp = "";
+            for (unsigned int i=0; i<d.length(); i++) {
+                if (d[i] == '-') {
+                    if (state == 0) { year = std::stoi(tmp); tmp = ""; state++; }
+                    else if (state == 1) { month = std::stoi(tmp); tmp = ""; state++; }
+                }
+                else { tmp += d[i]; }
+            }
+            day = std::stoi(tmp);
             break;
         }
         //assumes MONTH_DAY_YEAR
