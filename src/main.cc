@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
         //compress cluster graph and generate report
         Reporter * reporter = new Reporter(&conf, cluster_graph);
-        reporter->CompressAndGenerateReport();
+        reporter->CompressAndGenerateReport(dp.GetAttrNames());
 
         //memory cleanup
         delete reporter;

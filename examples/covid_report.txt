@@ -2,365 +2,547 @@ Report Containing Compressed Cluster List
 ----------------------------------------- 
 Cluster: 
 Count: 13643
-Range in Each Dimension: (-INF,2020-03-05],(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,0]                (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10865
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(0,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (0,INF)                (0,INF)   (-INF,INF)         (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 10132
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(0,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (0,INF)                (-INF,INF)   (0,INF)            (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 11121
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(0,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (0,INF)                (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 10450
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(-INF,INF),(0,INF),(0,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (-INF,INF)             (0,INF)   (0,INF)            (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 11012
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(-INF,INF),(0,INF),(-INF,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (-INF,INF)             (0,INF)   (-INF,INF)         (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 10393
-Range in Each Dimension: (-INF,2020-03-05],(0,INF),(-INF,INF),(-INF,INF),(0,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (0,INF)                 (-INF,INF)             (-INF,INF)   (0,INF)            (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 14041
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,0]               (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10791
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(0,INF),(0,INF),(0,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (0,INF)                (0,INF)   (0,INF)            (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10307
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(0,INF),(0,INF),(-INF,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (0,INF)                (0,INF)   (-INF,INF)         (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 10683
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(0,INF),(-INF,INF),(0,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (0,INF)                (-INF,INF)   (0,INF)            (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 13993
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,0]   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10532
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(0,INF),(0,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (0,INF)   (0,INF)            (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 15559
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10953
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 23442
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 21583
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 12812
-Range in Each Dimension: (-INF,2020-03-05],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-03-05]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 25272
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,0],(-INF,0],(-INF,0],(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,0]                (-INF,0]               (-INF,0]   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10468
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,0],(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,0]                (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 11471
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,0],(-INF,INF),(0,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,0]                (-INF,INF)             (0,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 35674
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (-INF,0]               (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 12574
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(0,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (0,INF)                (0,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10102
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,0],(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,0]           (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 11091
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 11245
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 47725
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 47635
-Range in Each Dimension: (2020-03-05,2020-04-07],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-03-05,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 35387
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(-INF,0],(-INF,INF),(-INF,0],(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (-INF,0]               (-INF,INF)   (-INF,0]           (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 38665
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(-INF,0],(-INF,INF),(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (-INF,0]               (-INF,INF)   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 35757
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(-INF,0],(-INF,INF),(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (-INF,0]               (-INF,INF)   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 11036
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(0,INF),(-INF,INF),(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (0,INF)                (-INF,INF)   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10457
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(0,INF),(-INF,INF),(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 36340
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(-INF,INF),(-INF,0],(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (-INF,INF)             (-INF,0]   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 12850
-Range in Each Dimension: (-INF,2020-04-07],(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,0]                (-INF,INF)             (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10190
-Range in Each Dimension: (-INF,2020-04-07],(0,INF),(0,INF),(0,INF),(0,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (0,INF)                 (0,INF)                (0,INF)   (0,INF)            (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 23728
-Range in Each Dimension: (-INF,2020-04-07],(0,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (0,INF)                 (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 23122
-Range in Each Dimension: (-INF,2020-04-07],(0,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (0,INF)                 (-INF,INF)             (0,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 21655
-Range in Each Dimension: (-INF,2020-04-07],(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (0,INF)                 (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 36148
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,0],(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,0]               (-INF,0]   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10093
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,0],(0,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,0]               (0,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 35934
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,0],(-INF,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,0]               (-INF,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10905
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,0]               (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 12530
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,0]   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 11447
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(0,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (0,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 11235
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(0,INF),(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (0,INF)   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10267
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(0,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (0,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 11395
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 22426
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 21567
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 35435
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,0]   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 13243
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,0]   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 21050
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (0,INF)   (-INF,INF)         (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 14380
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,0]           (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 26378
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (0,INF)            (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 24247
-Range in Each Dimension: (-INF,2020-04-07],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,0]
+Range in Each Dimension: 
+date                retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,2020-04-07]   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (0,INF)      (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 35624
-Range in Each Dimension: (2020-04-07,2020-05-11],(-INF,0],(-INF,0],(-INF,0],(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(2020-04-07,2020-05-11]   (-INF,0]                (-INF,0]               (-INF,0]   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 12398
-Range in Each Dimension: (2020-04-07,2020-05-11],(-INF,0],(-INF,0],(0,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date                      retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-04-07,2020-05-11]   (-INF,0]                (-INF,0]               (0,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 18142
-Range in Each Dimension: (2020-05-11,INF),(-INF,0],(-INF,0],(-INF,0],(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,0]                (-INF,0]               (-INF,0]   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10478
-Range in Each Dimension: (2020-05-11,INF),(-INF,0],(-INF,0],(0,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,0]                (-INF,0]               (0,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10411
-Range in Each Dimension: (2020-05-11,INF),(-INF,0],(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,0]                (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 39318
-Range in Each Dimension: (2020-05-11,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,0]                (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 38853
-Range in Each Dimension: (2020-05-11,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,0]                (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10435
-Range in Each Dimension: (2020-05-11,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,INF)              (0,INF)                (-INF,INF)   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 39315
-Range in Each Dimension: (2020-05-11,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-05-11,INF)   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10173
-Range in Each Dimension: (2020-04-07,INF),(-INF,0],(0,INF),(0,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-04-07,INF)   (-INF,0]                (0,INF)                (0,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10964
-Range in Each Dimension: (2020-04-07,INF),(-INF,0],(0,INF),(0,INF),(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-04-07,INF)   (-INF,0]                (0,INF)                (0,INF)   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 13836
-Range in Each Dimension: (2020-04-07,INF),(-INF,0],(0,INF),(-INF,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(2020-04-07,INF)   (-INF,0]                (0,INF)                (-INF,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 32901
-Range in Each Dimension: (2020-04-07,INF),(-INF,0],(-INF,INF),(0,INF),(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-04-07,INF)   (-INF,0]                (-INF,INF)             (0,INF)   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10255
-Range in Each Dimension: (2020-04-07,INF),(-INF,INF),(0,INF),(0,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date               retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(2020-04-07,INF)   (-INF,INF)              (0,INF)                (0,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 89832
-Range in Each Dimension: (-INF,INF),(-INF,0],(-INF,0],(-INF,0],(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (-INF,0]               (-INF,0]   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 33724
-Range in Each Dimension: (-INF,INF),(-INF,0],(-INF,0],(0,INF),(-INF,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (-INF,0]               (0,INF)   (-INF,INF)         (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10554
-Range in Each Dimension: (-INF,INF),(-INF,0],(0,INF),(-INF,0],(-INF,0],(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (0,INF)                (-INF,0]   (-INF,0]           (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 14374
-Range in Each Dimension: (-INF,INF),(-INF,0],(0,INF),(0,INF),(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (0,INF)                (0,INF)   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 89949
-Range in Each Dimension: (-INF,INF),(-INF,0],(-INF,INF),(-INF,0],(-INF,0],(-INF,0],(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (-INF,INF)             (-INF,0]   (-INF,0]           (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 11541
-Range in Each Dimension: (-INF,INF),(-INF,0],(-INF,INF),(-INF,0],(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (-INF,INF)             (-INF,0]   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 11535
-Range in Each Dimension: (-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(-INF,0],(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,0]                (-INF,INF)             (-INF,INF)   (-INF,0]           (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10452
-Range in Each Dimension: (-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (0,INF)                 (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 20458
-Range in Each Dimension: (-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (0,INF)                 (-INF,INF)             (-INF,INF)   (0,INF)            (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10163
-Range in Each Dimension: (-INF,INF),(0,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (0,INF)                 (-INF,INF)             (-INF,INF)   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 33235
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,0],(0,INF),(-INF,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,0]               (0,INF)   (-INF,INF)         (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 33235
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,0],(0,INF),(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,0]               (0,INF)   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 10282
-Range in Each Dimension: (-INF,INF),(-INF,INF),(0,INF),(-INF,0],(-INF,INF),(-INF,0],(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (0,INF)                (-INF,0]   (-INF,INF)         (-INF,0]     (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 22895
-Range in Each Dimension: (-INF,INF),(-INF,INF),(0,INF),(-INF,INF),(0,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (0,INF)                (-INF,INF)   (0,INF)            (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10486
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,0],(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (-INF,0]   (-INF,0]           (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 101533
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,INF),(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks      transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (-INF,0]   (-INF,INF)         (-INF,INF)   (0,INF)       
 ----------------------------------------- 
 Cluster: 
 Count: 22093
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(0,INF),(-INF,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (0,INF)   (0,INF)            (-INF,INF)   (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 21218
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,INF),(0,INF),(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks     transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (0,INF)   (-INF,INF)         (0,INF)      (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 10162
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,0],(-INF,INF),(-INF,0]
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,0]           (-INF,INF)   (-INF,0]      
 ----------------------------------------- 
 Cluster: 
 Count: 10187
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(-INF,0],(-INF,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (-INF,INF)   (0,INF)            (-INF,0]     (-INF,INF)    
 ----------------------------------------- 
 Cluster: 
 Count: 12150
-Range in Each Dimension: (-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(-INF,INF),(0,INF),(0,INF)
+Range in Each Dimension: 
+date         retail_and_recreation   grocery_and_pharmacy   parks        transit_stations   workplaces   residential   
+(-INF,INF)   (-INF,INF)              (-INF,INF)             (-INF,INF)   (-INF,INF)         (0,INF)      (0,INF)       
 ----------------------------------------- 
