@@ -2,6 +2,7 @@
 #define REPORTER_H
 
 #include <string>
+#include <iomanip>
 #include <vector>
 #include <algorithm>
 
@@ -17,7 +18,7 @@ public:
     }
 
     //used to compress,generate, and write report
-    void CompressAndGenerateReport();
+    void CompressAndGenerateReport(std::vector<std::string> colNames);
 
     //only compresses cluster graph
     void CompressClusterGraph();
@@ -33,7 +34,7 @@ private:
     std::vector<Cluster *> reportedClusters;
     bool CompressClusterGraph(Cluster * cluster);
     void GenerateReport(Cluster* cluster);
-    void WriteReport();
+    void WriteReport(std::vector<std::string> colNames);
 
 };
 

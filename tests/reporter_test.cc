@@ -344,7 +344,7 @@ TEST_F(ReporterTest, WriteTest) {
     }
 
     Reporter * reporter = new Reporter(&c, cluster_graph);
-    reporter->CompressAndGenerateReport();
+    reporter->CompressAndGenerateReport(dp.GetAttrNames());
     delete reporter;
     delete cluster_graph;
 }

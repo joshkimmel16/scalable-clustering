@@ -1,9 +1,9 @@
 #include "reporter.h"
 
-void Reporter::CompressAndGenerateReport() {
+void Reporter::CompressAndGenerateReport(std::vector<std::string> colNames) {
     CompressClusterGraph();
     GenerateReport();
-    WriteReport();
+    WriteReport(colNames);
 }
 
 void Reporter::CompressClusterGraph() {
@@ -106,7 +106,7 @@ void Reporter::GenerateReport(Cluster * cluster) {
     }
 }
 
-void Reporter::WriteReport() {
+void Reporter::WriteReport(std::vector<std::string> colNames) {
     std::ofstream reportFile;
     reportFile.open (config->GetReportPath());
     reportFile << "Report Containing Compressed Cluster List " <<std::endl;
@@ -114,8 +114,19 @@ void Reporter::WriteReport() {
     for (int i=0; i < reportedClusters.size(); i++) {
         reportFile << "Cluster: " << std::endl;
         reportFile << "Count: " << reportedClusters[i]->GetCount() << std::endl;
-        reportFile << "Range in Each Dimension: ";
-        reportFile << reportedClusters[i]->GetFullName();
+        reportFile << "Range in Each Dimension: " << std::endl;
+        for (int j=0; j < colNames.size(); j++) {
+            reportFile << std::fixed << std::left << 
+            std::setw(
+                std::max(colNames[j].length(), reportedClusters[i]->GetName(j).length())+3) << 
+            std::setfill(' ') << colNames[j];
+        }
+        reportFile << std::endl;
+        for (int j=0; j < colNames.size(); j++) {
+            reportFile << std::fixed << std::left << 
+            std::setw(
+                std::max(colNames[j].length(), reportedClusters[i]->GetName(j).length())+3) << 
+            std::setfill(' ') << reportedClusters[i]->GetName(j);        }
         reportFile << std::endl;
         reportFile << "----------------------------------------- " <<std::endl;
     }
