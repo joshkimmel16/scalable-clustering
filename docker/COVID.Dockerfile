@@ -24,5 +24,4 @@ COPY --from=builder /usr/cluster/examples/covid.conf .
 RUN wget https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv
 
 # execute scalable clustering on the data set
-ENTRYPOINT ["./main"]
-CMD ["covid.conf"]
+RUN ./main covid.conf
