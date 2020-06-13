@@ -37,9 +37,13 @@ docker build -t scalable-clustering:latest -f docker/Dockerfile .
 ```
 docker build -t scalable-clustering:covid -f docker/COVID.Dockerfile .
 ```
-* Run the production/example container to ensure it is working properly.
+* Run the production/example container to ensure it is working properly. Note that these containers currently have no entry point and thus will need one specified in the command line if they are meant to run persistently. The covid container is meant to be used only to generate a report on the latest COVID data set (see next step for how to retrieve that report).
 ```
-docker run --name scalable-clustering -d scalable-clustering:[latest/example]
+docker run --name scalable-clustering -d scalable-clustering:[latest/covid]
+```
+* (Optional) Retrieve report from COVID docker file by copying it from the running COVID container.
+```
+docker cp scalable-clustering:/usr/cluster/covid_report.txt [LOCAL_PATH]/covid_report.txt
 ```
 
 ## Configuration
