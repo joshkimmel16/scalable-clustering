@@ -1,4 +1,6 @@
 # Scalable Clustering
+[![Build Status][travis-badge]][travis-link]
+[![codecov][codecov-badge]][codecov-link]
 
 ## Compiling
 
@@ -101,3 +103,8 @@ REPORT_PATH=covid_report.txt
 * **Bobby Judd**
 * **Josh Kimmel**
 * **Zixuan Zhong**
+
+[travis-badge]:    https://travis-ci.org/bobbyjudd/scalable-clustering.svg?branch=master
+[travis-link]:     https://travis-ci.org/bobbyJudd/scalable-clustering
+[codecov-badge]:   https://codecov.io/gh/bobbyjudd/scalable-clustering/branch/master/graph/badge.svg
+[codecov-link]:    https://codecov.io/gh/bobbyjudd/scalable-clustering
